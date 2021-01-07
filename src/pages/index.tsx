@@ -1,6 +1,6 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const hello = css`
   color: #222;
@@ -8,7 +8,7 @@ const hello = css`
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
         <title>Code Snippet Memo</title>
         <link rel="icon" href="/favicon.ico" />
@@ -17,6 +17,15 @@ export default function Home() {
       <main>
         <h1 css={hello}>Code Snippet Memo</h1>
       </main>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
