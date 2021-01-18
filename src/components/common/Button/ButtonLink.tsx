@@ -5,6 +5,7 @@ import Link from "next/link";
 type Props = {
   href: string;
   isExternal?: boolean;
+  isRouterLink?: boolean;
   invert?: boolean;
 };
 
@@ -12,6 +13,7 @@ export const ButtonLink: React.FC<Props> = ({
   children,
   href,
   isExternal,
+  isRouterLink,
   invert,
 }) => {
   return (
@@ -25,12 +27,16 @@ export const ButtonLink: React.FC<Props> = ({
         >
           {children}
         </A>
-      ) : (
+      ) : isRouterLink ? (
         <Link href={href}>
           <A invert={invert} tabIndex={0}>
             {children}
           </A>
         </Link>
+      ) : (
+        <A href={href} invert={invert} tabIndex={0}>
+          {children}
+        </A>
       )}
     </Fragment>
   );
