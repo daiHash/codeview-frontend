@@ -10,8 +10,8 @@ export const AppWrapper = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const userStatus = await getUserStatus();
-      setUserStatus(userStatus);
+      const currentUser = await getUserStatus();
+      setUserStatus(currentUser);
     })();
   }, []);
 
