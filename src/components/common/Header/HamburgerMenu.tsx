@@ -3,14 +3,18 @@ import React, { Fragment } from "react";
 import HamburgerIconAsset from "./assets/Hamburger-Icon.svg";
 import Image from "next/image";
 import { TextLink } from "../TextLink";
+import { useToggle } from "utils/hooks/useToggle";
 
 export const HamburgerMenu: React.FC = () => {
+  const [isOpen, toggle] = useToggle(false);
+
   return (
     <Fragment>
       <MenuButton
         aria-controls="global-nav"
         aria-haspopup="true"
         id="menu-button"
+        onClick={toggle}
       >
         <Image
           src={HamburgerIconAsset}
@@ -22,30 +26,32 @@ export const HamburgerMenu: React.FC = () => {
         <span>MENU</span>
       </MenuButton>
 
-      <MenuContent id="global-nav" aria-label="Main navigation">
-        <ul>
-          <li>
-            <TextLink href="/profile" isRouterLink>
-              Profile
-            </TextLink>
-          </li>
-          <li>
-            <TextLink href="/snippet/favorites" isRouterLink>
-              Favorite Snippets
-            </TextLink>
-          </li>
-          <li>
-            <TextLink href="/profile/my-snippets" isRouterLink>
-              My Snippets
-            </TextLink>
-          </li>
-          <li>
-            <TextLink href="http://localhost:3000/api/auth/logout">
-              Log out
-            </TextLink>
-          </li>
-        </ul>
-      </MenuContent>
+      {isOpen && (
+        <MenuContent id="global-nav" aria-label="Main navigation">
+          <ul>
+            <li>
+              <TextLink href="/profile" isRouterLink>
+                Profile
+              </TextLink>
+            </li>
+            <li>
+              <TextLink href="/snippet/favorites" isRouterLink>
+                Favorite Snippets
+              </TextLink>
+            </li>
+            <li>
+              <TextLink href="/profile/my-snippets" isRouterLink>
+                My Snippets
+              </TextLink>
+            </li>
+            <li>
+              <TextLink href="http://localhost:3000/api/auth/logout">
+                Log out
+              </TextLink>
+            </li>
+          </ul>
+        </MenuContent>
+      )}
     </Fragment>
   );
 };
