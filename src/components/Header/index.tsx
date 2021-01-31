@@ -10,10 +10,6 @@ import { SignInMenu } from "./SignInMenu";
 export const Header = () => {
   const { isCurrentUser } = useAppContext();
 
-  if (isCurrentUser === undefined) {
-    return null;
-  }
-
   return (
     <StyledHeader>
       <TextLink href="/" isRouterLink>
@@ -26,7 +22,7 @@ export const Header = () => {
         />
       </TextLink>
 
-      {isCurrentUser ? (
+      {isCurrentUser && isCurrentUser !== undefined ? (
         <Fragment>
           <ButtonLink href="/snippet/create" isRouterLink>
             Create New Snippet
