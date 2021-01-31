@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import { ButtonLink } from "../Button/ButtonLink";
 import Image from "next/image";
 import GoogleSignInButtonAsset from "./assets/btn_google_signin.png";
@@ -10,6 +10,14 @@ import { Button } from "../Button";
 export const SignInMenu = () => {
   const [isOpen, toggle] = useToggle(false);
 
+  const GOOGLE_SIGIN_URL = useMemo(
+    () =>
+      process.env.NODE_ENV !== "development"
+        ? "https://code-snippet-memo.herokuapp.com/api/auth/google"
+        : "http://localhost:3000/api/auth/google",
+    []
+  );
+
   return (
     <Fragment>
       <Button onClick={toggle}>Sign In</Button>
@@ -18,7 +26,7 @@ export const SignInMenu = () => {
         <MenuContent>
           <ul>
             <li>
-              <TextLink href="http://localhost:3000/api/auth/google">
+              <TextLink href={GOOGLE_SIGIN_URL}>
                 <Image
                   src={GoogleSignInButtonAsset}
                   alt="Google Sign In Button"

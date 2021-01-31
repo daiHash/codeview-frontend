@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import HamburgerIconAsset from "./assets/Hamburger-Icon.svg";
 import Image from "next/image";
 import { TextLink } from "../TextLink";
@@ -7,6 +7,13 @@ import { useToggle } from "utils/hooks/useToggle";
 
 export const HamburgerMenu: React.FC = () => {
   const [isOpen, toggle] = useToggle(false);
+  const LOGOUT_URL = useMemo(
+    () =>
+      process.env.NODE_ENV !== "development"
+        ? "https://code-snippet-memo.herokuapp.com/api/auth/logout"
+        : "http://localhost:3000/api/auth/logout",
+    []
+  );
 
   return (
     <Fragment>
@@ -45,9 +52,7 @@ export const HamburgerMenu: React.FC = () => {
               </TextLink>
             </li>
             <li>
-              <TextLink href="http://localhost:3000/api/auth/logout">
-                Log out
-              </TextLink>
+              <TextLink href={LOGOUT_URL}>Log out</TextLink>
             </li>
           </ul>
         </MenuContent>
