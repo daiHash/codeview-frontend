@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import React, { Fragment, useRef } from "react";
+import React, { Fragment } from "react";
 import Image from "next/image";
-import LogoAsset from "./assets/Logo.svg";
 import { useAppContext } from "context";
 import { ButtonLink } from "../Button/ButtonLink";
 import { HamburgerMenu } from "./HamburgerMenu";
@@ -20,7 +19,7 @@ export const Header = () => {
       <TextLink href="/" isRouterLink>
         <Image
           tabIndex={1}
-          src={LogoAsset}
+          src="/Logo.svg"
           alt="Code Snippet Memo"
           width={234.4}
           height={26.57}

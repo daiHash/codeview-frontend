@@ -11,10 +11,6 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 button {
   border: 0;
   background: transparent;
