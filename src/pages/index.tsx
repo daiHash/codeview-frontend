@@ -2,7 +2,7 @@ import Head from "next/head";
 import styled from "@emotion/styled";
 import { useAppContext } from "context";
 import { api } from "utils/api";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "layout/Layout";
 import axios from "axios";
 import { NextPageContext } from "next";
@@ -61,7 +61,7 @@ export default function Home() {
 
   const click5 = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const res = await api.patch("/snippets/1", {
+    const res = await api.put("/snippets/1", {
       title: "New Snippeto",
       snippetContentMD: ["## NewSnippet1", "#### more"],
     });
@@ -70,6 +70,17 @@ export default function Home() {
       return res.data;
     }
   };
+
+  const getLatestSnippets = async () => {
+    const res = await api.get("/guest/snippets");
+    if (res) {
+      setSnippets(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getLatestSnippets();
+  }, []);
   return (
     <Container>
       <Head>
@@ -80,17 +91,17 @@ export default function Home() {
       <Layout>
         <main>
           <div>
-            <button onClick={click}>Create Snippet</button>
+            {/* <button onClick={click}>Create Snippet</button>
             <button onClick={click2}>Get all Snippets</button>
             <button onClick={click3}>Get Snippet by ID</button>
             <button onClick={click4}>Delete Snippet by ID</button>
-            <button onClick={click5}>Update Snippet by ID</button>
+            <button onClick={click5}>Update Snippet by ID</button> */}
             <div>
               {snippets.map((snippet) => (
                 <p>{snippet.title}</p>
               ))}
             </div>
-            <div>{snippet.title}</div>
+            {/* <div>{snippet.title}</div> */}
           </div>
           {/* <h1 css={hello}>
           Code Snippet Memo{" "}
@@ -129,13 +140,3 @@ const Container = styled.div`
   justify-content: center;
   align-items: center; */
 `;
-
-// Home.getInitialProps = async (context: NextPageContext) => {
-//   // if (context.req) {
-//   //   // it runs on server side
-//   console.log(context.req.headers.cookie);
-//   axios.defaults.headers.get.Cookie = context.req.headers.cookie;
-//   // }
-//   // return { context };
-//   return {};
-// };
