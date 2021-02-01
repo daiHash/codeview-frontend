@@ -2,15 +2,16 @@ import Head from "next/head";
 import styled from "@emotion/styled";
 import { useAppContext } from "context";
 import { api } from "utils/api";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Layout } from "layout/Layout";
-import axios from "axios";
-import { NextPageContext } from "next";
+import { getLatestSnippets } from "helpers/api/snippets/getLAtestSnippets";
+import { SnippetCard } from "components/SnippetCard";
+import { Snippet } from "helpers/api/snippets/types";
 
 export default function Home() {
   // const { isCurrentUser } = useAppContext();
 
-  const [snippets, setSnippets] = useState([]);
+  const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [snippet, setSnippet] = useState({
     title: "",
     description: "",
@@ -71,72 +72,50 @@ export default function Home() {
     }
   };
 
-  const getLatestSnippets = async () => {
-    const res = await api.get("/guest/snippets");
-    if (res) {
-      setSnippets(res.data);
-    }
-  };
-
   useEffect(() => {
-    getLatestSnippets();
+    (async () => {
+      const snippets = await getLatestSnippets();
+
+      setSnippets(snippets);
+    })();
   }, []);
   return (
-    <Container>
+    <Fragment>
       <Head>
         <title>Code Snippet Memo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Layout>
-        <main>
-          <div>
-            {/* <button onClick={click}>Create Snippet</button>
-            <button onClick={click2}>Get all Snippets</button>
-            <button onClick={click3}>Get Snippet by ID</button>
-            <button onClick={click4}>Delete Snippet by ID</button>
-            <button onClick={click5}>Update Snippet by ID</button> */}
-            <div>
-              {snippets.map((snippet) => (
-                <p>{snippet.title}</p>
-              ))}
-            </div>
-            {/* <div>{snippet.title}</div> */}
-          </div>
-          {/* <h1 css={hello}>
-          Code Snippet Memo{" "}
-          {isCurrentUser ? (
-            <div>
-              <a href="http://localhost:3000/api/auth/logout">logout</a>
-              <button onClick={click}>Create Snippet</button>
-              <button onClick={click2}>Get all Snippets</button>
-              <button onClick={click3}>Get Snippet by ID</button>
-              <button onClick={click4}>Delete Snippet by ID</button>
-              <button onClick={click5}>Update Snippet by ID</button>
-              <div>
-                {snippets.map((snippet) => (
-                  <p>{snippet.title}</p>
-                ))}
-              </div>
-              <div>{snippet.title}</div>
-            </div>
-          ) : (
-            <a href="http://localhost:3000/api/auth/google">
-              login with google
-            </a>
-          )}
-        </h1> */}
-        </main>
+        <Main>
+          <Title>Latest Code Snippets:</Title>
+          <LatestSnippets>
+            {snippets.map((snippet) => (
+              <li key={`${snippet.id}`}>
+                <SnippetCard snippet={snippet} />
+              </li>
+            ))}
+          </LatestSnippets>
+        </Main>
       </Layout>
-    </Container>
+    </Fragment>
   );
 }
 
-const Container = styled.div`
-  /* min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
+const Main = styled.main`
+  width: 80%;
+  padding: 50px 0;
+  margin: 0 auto;
+`;
+
+const Title = styled.h2``;
+
+const LatestSnippets = styled.ul`
+  padding-left: 0;
+
+  li {
+    &:not(:first-of-type) {
+      margin-top: 25px;
+    }
+  }
 `;
