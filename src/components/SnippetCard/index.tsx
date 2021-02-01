@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Snippet } from "helpers/api/snippets/types";
-import React, { Fragment } from "react";
+import React from "react";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
   snippet: { id, title, description, snippetContentMD },

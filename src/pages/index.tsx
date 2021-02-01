@@ -4,7 +4,7 @@ import { useAppContext } from "context";
 import { api } from "utils/api";
 import React, { Fragment, useEffect, useState } from "react";
 import { Layout } from "layout/Layout";
-import { getLatestSnippets } from "helpers/api/snippets/getLAtestSnippets";
+import { getLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import { Snippet } from "helpers/api/snippets/types";
 
