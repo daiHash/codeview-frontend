@@ -3,4 +3,6 @@ export type Snippet = {
   title: string;
   description: string;
   snippetContentMD: string[];
+  createdAt: string;
+  updatedAt: string;
 };

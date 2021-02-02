@@ -7,6 +7,7 @@ import { Layout } from "layout/Layout";
 import { getLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import { Snippet } from "helpers/api/snippets/types";
+import Link from "next/link";
 
 export default function Home() {
   // const { isCurrentUser } = useAppContext();
@@ -87,26 +88,22 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <Main>
-          <Title>Latest Code Snippets:</Title>
-          <LatestSnippets>
-            {snippets.map((snippet) => (
-              <li key={`${snippet.id}`}>
-                <SnippetCard snippet={snippet} />
-              </li>
-            ))}
-          </LatestSnippets>
-        </Main>
+        <Title>Latest Code Snippets:</Title>
+        <LatestSnippets>
+          {snippets.map((snippet) => (
+            <li key={`${snippet.id}`}>
+              <Link href={`/snippet/${snippet.id}`}>
+                <a>
+                  <SnippetCard snippet={snippet} />
+                </a>
+              </Link>
+            </li>
+          ))}
+        </LatestSnippets>
       </Layout>
     </Fragment>
   );
 }
-
-const Main = styled.main`
-  width: 80%;
-  padding: 50px 0;
-  margin: 0 auto;
-`;
 
 const Title = styled.h2``;
 

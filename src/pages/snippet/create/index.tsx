@@ -2,14 +2,14 @@ import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { api } from "utils/api";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
 
 // TODO: Add Styles
 export default function Create() {
   const router = useRouter();
-  const [render, md] = useMDEditor();
+  const { renderEditor, md } = useMDEditor();
 
   const [snippet, setSnippet] = useState({
     title: "",
@@ -63,10 +63,9 @@ export default function Create() {
   }, []);
 
   return (
-    <Container>
+    <Fragment>
       <Head>
         <title>Code Snippet Memo | Create New Snippet Memo</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Layout>
@@ -93,20 +92,11 @@ export default function Create() {
           </label>
 
           <h2>Add your Code Snippet</h2>
-          <div>{render()}</div>
+          <div>{renderEditor()}</div>
 
           <button onClick={createSnippet}>Create New Code Snippet🧟‍♂️</button>
         </main>
       </Layout>
-    </Container>
+    </Fragment>
   );
 }
-
-const Container = styled.div`
-  /* min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-`;
