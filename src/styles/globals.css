@@ -20,3 +20,12 @@ ul,
 ol {
   list-style: none;
 }
+
+@media (prefers-color-scheme: dark) {
+  pre {
+    background-color: #193549 !important;
+  }
+  pre code {
+    background-color: #193549 !important;
+  }
+}
