@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Snippet } from "helpers/api/snippets/types";
 import React from "react";
-import { formatDatetime } from "utils/formatDateTime";
+import { formatDatetime } from "utils/formatDatetime";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
-  snippet: { id, title, description, createdAt },
+  snippet: { title, description, createdAt },
 }) => {
   return (
     <Card>
