@@ -1,5 +1,5 @@
 import { api } from "utils/api";
-import { formatDatetime } from "utils/formatDateTime";
+import { formatDatetime } from "utils/formatDatetime";
 import { Snippet } from "./types";
 
 export const getSnippetById = async (id: string) => {
