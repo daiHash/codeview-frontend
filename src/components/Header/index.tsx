@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React, { Fragment } from "react";
-import Image from "next/image";
 import { useAppContext } from "context";
 import { ButtonLink } from "../Button/ButtonLink";
 import { HamburgerMenu } from "./HamburgerMenu";
@@ -13,13 +12,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <TextLink href="/" isRouterLink>
-        <Image
-          tabIndex={1}
-          src="/Logo.svg"
-          alt="Code Snippet Memo"
-          width={234.4}
-          height={26.57}
-        />
+        <h2>Code Snippet Memo</h2>
       </TextLink>
 
       {isCurrentUser && isCurrentUser !== undefined ? (
