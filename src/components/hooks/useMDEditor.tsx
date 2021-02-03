@@ -132,7 +132,6 @@ export const useMDEditor = () => {
   const renderFormatter = useCallback((mdContent: string) => {
     return (
       <MdEditor
-        style={{ height: "500px" }}
         renderHTML={(text: string) => mdParser.render(text)}
         value={mdContent}
         view={{ menu: false, md: false }}
