@@ -7,6 +7,8 @@ import { getSnippetById } from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
 import { useMDEditor } from "components/hooks/useMDEditor";
 
+// TODO: Fix styles
+
 export default function SnippetDetail() {
   const router = useRouter();
   const { pid } = router.query;
