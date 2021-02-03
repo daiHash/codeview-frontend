@@ -46,10 +46,7 @@ export const useMDEditor = () => {
   const currentMD = useRef<string | null>(null);
   const mdParser = new MarkdownIt({
     highlight: function (str: string, lang: string) {
-      console.log(str, lang);
-
       if (lang && hljs.getLanguage(lang)) {
-        console.log("in??");
         try {
           return (
             '<pre class="hljs"><code>' +
