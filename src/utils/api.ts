@@ -14,7 +14,7 @@ export const api = axios.create({
     "Access-Control-Allow-Origin":
       process.env.NODE_ENV !== "production"
         ? "http://localhost:8080"
-        : "https://code-snippet-memo-frontend.vercel.app",
+        : "https://codesnippetmemo.vercel.app/",
   },
   responseType: "json",
 });
