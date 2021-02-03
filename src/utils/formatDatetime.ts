@@ -1,7 +1,8 @@
 export const formatDatetime = (datetime: string): string => {
-  const [month, day, year] = new Date(datetime)
-    .toDateString()
+  const [day, month, year] = new Date(datetime)
+    .toUTCString()
+    .split(", ")[1]
     .split(" ")
-    .slice(1);
+    .slice(0, 3);
   return `${day} ${month} ${year}`;
 };
