@@ -40,6 +40,11 @@ const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   ssr: false,
 });
 
+/**
+ * TODO: Handle copy code feature
+ * TODO: update input
+ */
+
 export const useMDEditor = () => {
   const [md, setMD] = useState("");
   // const [copied, copy] = useCopyToClipboard("hey");
