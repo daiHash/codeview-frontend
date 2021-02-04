@@ -16,7 +16,10 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
 };
 
 const Card = styled.div`
-  border: 1px solid #eee;
   padding: 20px;
   width: 100%;
+  min-height: 200px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px 0px rgba(50, 50, 50, 0.75);
 `;

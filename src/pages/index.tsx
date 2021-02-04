@@ -108,11 +108,18 @@ export default function Home() {
 const Title = styled.h2``;
 
 const LatestSnippets = styled.ul`
+  width: 100%;
   padding-left: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 
   li {
-    &:not(:first-of-type) {
-      margin-top: 25px;
+    width: calc((100% - 40px) / 2);
+    margin-top: 25px;
+
+    &:nth-of-type(odd) {
+      margin-right: 20px;
     }
   }
 `;
