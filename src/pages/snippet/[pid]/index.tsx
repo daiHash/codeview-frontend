@@ -8,11 +8,10 @@ import { Snippet } from "helpers/api/snippets/types";
 import { useMDEditor } from "components/hooks/useMDEditor";
 
 // TODO: Fix styles
-
 export default function SnippetDetail() {
   const router = useRouter();
   const { pid } = router.query;
-  const { renderFormatter, md } = useMDEditor();
+  const { renderFormatter } = useMDEditor();
 
   const [snippet, setSnippet] = useState<Snippet>({
     id: 0,

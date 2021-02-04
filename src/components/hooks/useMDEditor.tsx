@@ -90,17 +90,6 @@ export const useMDEditor = () => {
     return () => sessionStorage.removeItem("currentSnippet");
   }, []);
 
-  useEffect(() => {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      require("highlight.js/styles/a11y-dark.css");
-      return;
-    }
-    require("highlight.js/styles/a11y-light.css");
-  }, []);
-
   // useEffect(() => {
   //   const code = document.querySelectorAll("pre");
   //   if (code) {
