@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
+import styled from "@emotion/styled";
 import "react-markdown-editor-lite/lib/index.css";
 
 // const useCopyToClipboard = (text: string) => {
@@ -125,13 +126,25 @@ export const useMDEditor = () => {
 
   const renderFormatter = useCallback((mdContent: string) => {
     return (
-      <MdEditor
-        renderHTML={(text: string) => mdParser.render(text)}
-        value={mdContent}
-        view={{ menu: false, md: false }}
-      />
+      <Wrapper>
+        <MdEditor
+          renderHTML={(text: string) => mdParser.render(text)}
+          value={mdContent}
+          view={{ menu: false, md: false }}
+        />
+      </Wrapper>
     );
   }, []);
 
   return { renderEditor, md, renderFormatter } as const;
 };
+
+const Wrapper = styled.section`
+  > div {
+    border: 0;
+    section > div {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+`;
