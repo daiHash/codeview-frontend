@@ -61,4 +61,8 @@ const A = styled.a<{ invert?: boolean }>`
       invert ? "#4568fb" : "rgba(69, 105, 251, 0.9)"};
     color: #fff;
   }
+
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 `;

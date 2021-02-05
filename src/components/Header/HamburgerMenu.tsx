@@ -67,6 +67,10 @@ const MenuButton = styled.button`
   span {
     display: block;
   }
+
+  @media screen and (max-width: 600px) {
+    margin-left: 15px;
+  }
 `;
 
 const MenuContent = styled.nav`

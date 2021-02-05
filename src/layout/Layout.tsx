@@ -27,5 +27,6 @@ const Main = styled.main`
     padding: 30px 20px;
     margin: 30px auto;
     width: 90%;
+    min-height: calc(100vh - 150px - 80px);
   }
 `;
