@@ -47,7 +47,7 @@ export const HamburgerMenu: React.FC = () => {
               </TextLink>
             </li>
             <li>
-              <TextLink href="/profile/my-snippets" isRouterLink>
+              <TextLink href="/profile/mysnippets" isRouterLink>
                 My Snippets
               </TextLink>
             </li>
