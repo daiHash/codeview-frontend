@@ -72,6 +72,7 @@ export default function EditSnippet() {
     sessionStorage.setItem("currentSnippet", JSON.stringify({ [name]: value }));
   };
 
+  // TODO: Fix to keep state of session
   useEffect(() => {
     const currentSnippet = JSON.parse(sessionStorage.getItem("currentSnippet"));
     if (currentSnippet) {
