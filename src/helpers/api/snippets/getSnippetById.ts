@@ -3,7 +3,7 @@ import { formatDatetime } from "utils/formatDatetime";
 import { Snippet } from "./types";
 
 export const getSnippetById = async (id: string) => {
-  const res = await api.get<Snippet>(`/guest/snippet/${id}`);
+  const res = await api.get<Snippet>(`/snippets/${id}`);
   if (!res) {
     return null;
   }
