@@ -7,6 +7,8 @@ import { useToggle } from "utils/hooks/useToggle";
 
 export const HamburgerMenu: React.FC = () => {
   const [isOpen, toggle] = useToggle(false);
+
+  // TODO: set env vars for this
   const LOGOUT_URL = useMemo(
     () =>
       process.env.NODE_ENV !== "development"

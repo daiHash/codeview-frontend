@@ -32,6 +32,7 @@ export const Header = () => {
 };
 
 const StyledHeader = styled.header`
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
