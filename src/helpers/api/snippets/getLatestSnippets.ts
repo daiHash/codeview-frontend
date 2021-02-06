@@ -8,3 +8,11 @@ export const getLatestSnippets = async () => {
   }
   return res.data;
 };
+
+export const getMyLatestSnippets = async () => {
+  const res = await api.get<Snippet[]>("/snippets");
+  if (!res) {
+    return [];
+  }
+  return res.data;
+};
