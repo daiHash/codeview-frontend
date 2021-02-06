@@ -35,6 +35,7 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
+  min-width: 375px;
   height: 80px;
   padding: 0 20px;
   background: #ffffff;
