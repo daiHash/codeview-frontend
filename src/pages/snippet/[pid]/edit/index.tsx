@@ -12,45 +12,43 @@ import React, {
 } from "react";
 import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
-import { Button } from "components/Button";
+import { getSnippetById } from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
+import { updateSnippetById } from "helpers/api/snippets/updateSnippet";
+import { Button } from "components/Button";
 import deepEqual from "deep-equal";
 
 // TODO: Add Styles
-export default function CreateSnippet() {
+
+type EditSnippet = Pick<Snippet, "title" | "description" | "snippetContentMD">;
+
+export default function EditSnippet() {
   const router = useRouter();
-  const initialState = useRef<
-    Pick<Snippet, "title" | "description" | "snippetContentMD">
-  >({
+  const { pid } = router.query;
+  const initialState = useRef<EditSnippet>(null);
+  const [snippet, setSnippet] = useState<EditSnippet>({
     title: "",
     description: "",
     snippetContentMD: [""],
   });
-  const { renderEditor, md } = useMDEditor();
-
-  const [snippet, setSnippet] = useState({
-    title: "",
-    description: "",
-  });
+  const { renderEditor, md } = useMDEditor(snippet.snippetContentMD[0]);
 
   const disableButton = useMemo(() => {
     return initialState.current === null
       ? true
-      : initialState.current.title === snippet.title ||
-          initialState.current.description === snippet.description ||
-          initialState.current.snippetContentMD[0] === md;
-  }, [snippet, initialState.current, md]);
+      : deepEqual(initialState.current, snippet);
+  }, [snippet, initialState.current]);
 
-  const createSnippet = useCallback(async () => {
-    const { title, description } = snippet;
-    const res = await api.post("/snippets", {
-      title,
-      description,
-      snippetContentMD: [md],
-    });
+  const updateSnippet = useCallback(async () => {
+    if (pid && typeof pid === "string") {
+      const res = await updateSnippetById(pid, {
+        ...snippet,
+        snippetContentMD: md ? [md] : snippet.snippetContentMD,
+      });
 
-    if (res) {
-      router.push("/");
+      if (res) {
+        router.push("/");
+      }
     }
   }, [snippet, md]);
 
@@ -85,26 +83,45 @@ export default function CreateSnippet() {
     return () => sessionStorage.removeItem("currentSnippet");
   }, []);
 
+  useEffect(() => {
+    if (pid && typeof pid === "string") {
+      (async () => {
+        const currentSnippet = await getSnippetById(pid);
+
+        initialState.current = currentSnippet;
+        setSnippet((snippet) => {
+          return { ...snippet, ...currentSnippet };
+        });
+      })();
+    }
+  }, [pid]);
+
+  useEffect(() => {
+    setSnippet((v) => {
+      return { ...v, snippetContentMD: [md] };
+    });
+  }, [md]);
+
   return (
     <Fragment>
       <Head>
-        <title>Code Snippet Memo | Create New Snippet Memo</title>
+        <title>Code Snippet Memo | Edit Snippet Memo</title>
       </Head>
 
       <Layout>
         <main>
           <Heading>
-            <h2>Add your Code Snippet</h2>
+            <h2>Edit your Code Snippet</h2>
             <ButtonWrapper>
-              <Button onClick={createSnippet} disabled={disableButton}>
-                Add New Snippet
+              <Button onClick={updateSnippet} disabled={disableButton}>
+                Update Code Snippet
               </Button>
             </ButtonWrapper>
           </Heading>
 
           <InputsWrapper>
             <label>
-              <span>Add Title:</span>
+              <span>Edit Title:</span>
               <input
                 type="text"
                 name="title"
@@ -114,7 +131,7 @@ export default function CreateSnippet() {
               />
             </label>
             <label>
-              <span>Add Description:</span>
+              <span>Edit Description:</span>
               <textarea
                 name="description"
                 id="description"
@@ -123,6 +140,7 @@ export default function CreateSnippet() {
               />
             </label>
           </InputsWrapper>
+
           <div>{renderEditor()}</div>
         </main>
       </Layout>
@@ -179,7 +197,7 @@ const InputsWrapper = styled.div`
     textarea {
       min-height: 100px;
       max-height: 100px;
-      padding: 10px;
+      padding: 10px 20px;
     }
   }
 `;

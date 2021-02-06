@@ -7,6 +7,7 @@ type Props = {
   isExternal?: boolean;
   isRouterLink?: boolean;
   invert?: boolean;
+  disabled?: boolean;
 };
 
 export const ButtonLink: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const ButtonLink: React.FC<Props> = ({
   isExternal,
   isRouterLink,
   invert,
+  disabled,
 }) => {
   return (
     <Fragment>
@@ -24,17 +26,18 @@ export const ButtonLink: React.FC<Props> = ({
           target="_blank"
           rel="noopener noreferrer"
           invert={invert}
+          disabled={disabled}
         >
           {children}
         </A>
       ) : isRouterLink ? (
         <Link href={href}>
-          <A invert={invert} tabIndex={0}>
+          <A invert={invert} tabIndex={0} disabled={disabled}>
             {children}
           </A>
         </Link>
       ) : (
-        <A href={href} invert={invert} tabIndex={0}>
+        <A href={href} invert={invert} tabIndex={0} disabled={disabled}>
           {children}
         </A>
       )}
@@ -42,7 +45,7 @@ export const ButtonLink: React.FC<Props> = ({
   );
 };
 
-const A = styled.a<{ invert?: boolean }>`
+const A = styled.a<{ invert?: boolean; disabled?: boolean }>`
   display: inline-block;
   text-align: center;
   background: ${({ invert }) => (invert ? "transparent" : "#4568fb")};
@@ -51,10 +54,12 @@ const A = styled.a<{ invert?: boolean }>`
   width: auto;
   min-width: 120px;
   padding: 10px 15px;
-  font-size: 18px;
+  font-size: 1rem;
   border: ${({ invert }) => (invert ? "1px solid #4568fb" : "none")};
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   transition: background 0.2s color 0.2s;
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
+  opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
 
   &:hover {
     background: ${({ invert }) =>
@@ -63,6 +68,6 @@ const A = styled.a<{ invert?: boolean }>`
   }
 
   @media screen and (max-width: 600px) {
-    font-size: 15px;
+    font-size: var(--fontSize-15);
   }
 `;

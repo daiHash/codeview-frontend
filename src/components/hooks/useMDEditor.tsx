@@ -46,8 +46,9 @@ const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
  * TODO: update input
  */
 
-export const useMDEditor = () => {
+export const useMDEditor = (defaultMD?: string) => {
   const [md, setMD] = useState("");
+
   // const [copied, copy] = useCopyToClipboard("hey");
   const currentMD = useRef<string | null>(null);
   const mdParser = new MarkdownIt({
@@ -92,6 +93,12 @@ export const useMDEditor = () => {
   }, []);
 
   // useEffect(() => {
+  //   if (defaultMD) {
+  //     setMD(defaultMD);
+  //   }
+  // }, [defaultMD]);
+
+  // useEffect(() => {
   //   const code = document.querySelectorAll("pre");
   //   if (code) {
   //     for (let i = 0; i < code.length; i++) {
@@ -119,10 +126,10 @@ export const useMDEditor = () => {
         style={{ height: "500px" }}
         renderHTML={(text: string) => mdParser.render(text)}
         onChange={handleEditorChange}
-        value={currentMD.current ?? undefined}
+        value={currentMD.current || defaultMD || ""}
       />
     );
-  }, []);
+  }, [defaultMD]);
 
   const renderFormatter = useCallback((mdContent: string) => {
     return (

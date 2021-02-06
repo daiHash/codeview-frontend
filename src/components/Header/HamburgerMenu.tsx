@@ -68,6 +68,7 @@ const MenuButton = styled.button`
 
   span {
     display: block;
+    font-size: var(--fontSize-14);
   }
 
   @media screen and (max-width: 600px) {

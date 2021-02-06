@@ -45,6 +45,7 @@ const StyledHeader = styled.header`
   > a {
     &:first-of-type {
       display: inline-flex;
+      align-items: center;
       height: 100%;
       margin-right: auto;
     }

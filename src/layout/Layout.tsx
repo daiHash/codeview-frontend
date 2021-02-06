@@ -21,7 +21,7 @@ const Main = styled.main`
   margin: 50px auto;
   background: #fff;
   border-radius: 4px;
-  border: 1px solid rgba(50, 50, 50, 0.1);
+  border: 1px solid #e0e0e0;
 
   @media screen and (max-width: 600px) {
     padding: 30px 20px;
