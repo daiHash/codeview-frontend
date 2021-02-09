@@ -1,31 +1,26 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
 import { Head } from "next/document";
 import { useRouter } from "next/router";
-import { getSnippetById } from "helpers/api/snippets/getSnippetById";
-import { Snippet } from "helpers/api/snippets/types";
+import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
 import { useMDEditor } from "components/hooks/useMDEditor";
 import { Button } from "components/Button";
+import { useApi } from "utils/api/useApi";
+import { LoadingContent } from "components/Loading/LoadingContent";
+import { formatDatetime } from "utils/formatDatetime";
 
-// TODO: Fix styles
 export default function SnippetDetail() {
   const router = useRouter();
   const { pid } = router.query;
   const { renderFormatter } = useMDEditor();
 
-  const [
-    { title, description, snippetContentMD, createdAt, updatedAt, isUser },
-    setSnippet,
-  ] = useState<Snippet>({
-    id: 0,
-    title: "",
-    description: "",
-    snippetContentMD: [""],
-    createdAt: "",
-    updatedAt: "",
-    isUser: null,
-  });
+  const SnippetId = useMemo<string>(() => {
+    if (pid && typeof pid === "string") {
+      return pid;
+    }
+  }, [pid]);
+  const [snippetApi, getSnippet] = useApi(() => getSnippetByIdAPI(SnippetId));
 
   const buttonStyles = {
     fontSize: "16px",
@@ -39,17 +34,9 @@ export default function SnippetDetail() {
     }
   };
 
-  const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
-    createdAt,
-    updatedAt,
-  ]);
-
   useEffect(() => {
     if (pid && typeof pid === "string") {
-      (async () => {
-        const snippet = await getSnippetById(pid);
-        setSnippet(snippet);
-      })();
+      getSnippet();
     }
   }, [pid]);
 
@@ -60,35 +47,58 @@ export default function SnippetDetail() {
       </Head> */}
 
       <Layout>
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <SubContent>
-          <p>
-            Created:
-            <time dateTime={createdAt}> {createdAt}</time>
-          </p>
-          {isUpdatedSnippet && (
-            <p>
-              <i>・ </i>
-              Updated on
-              <time dateTime={updatedAt}> {updatedAt}</time>
-            </p>
-          )}
+        <LoadingContent
+          isLoading={snippetApi.status === "loading"}
+          marginTop="40%"
+        >
+          {snippetApi.status === "succeeded" && (
+            <Fragment>
+              <h2>{snippetApi.response.title}</h2>
+              <p>{snippetApi.response.description}</p>
+              <SubContent>
+                <p>
+                  Created:
+                  <time
+                    dateTime={formatDatetime(snippetApi.response.createdAt)}
+                  >
+                    {" "}
+                    {formatDatetime(snippetApi.response.createdAt)}
+                  </time>
+                </p>
+                {formatDatetime(snippetApi.response.createdAt) !==
+                  formatDatetime(snippetApi.response.updatedAt) && (
+                  <p>
+                    <i>・ </i>
+                    Updated on
+                    <time
+                      dateTime={formatDatetime(snippetApi.response.updatedAt)}
+                    >
+                      {" "}
+                      {formatDatetime(snippetApi.response.updatedAt)}
+                    </time>
+                  </p>
+                )}
 
-          {isUser !== null && isUser && (
-            <ButtonsWrapper>
-              <Button onClick={sendToEdit} styles={buttonStyles} invert>
-                Edit
-              </Button>
-              {/* //TODO: Handle delete */}
-              {/* <Button onClick={() => null} styles={buttonStyles} invert>
+                {snippetApi.response.isUser !== null &&
+                  snippetApi.response.isUser && (
+                    <ButtonsWrapper>
+                      <Button onClick={sendToEdit} styles={buttonStyles} invert>
+                        Edit
+                      </Button>
+                      {/* //TODO: Handle delete */}
+                      {/* <Button onClick={() => null} styles={buttonStyles} invert>
                 Delete
               </Button> */}
-            </ButtonsWrapper>
-          )}
-        </SubContent>
+                    </ButtonsWrapper>
+                  )}
+              </SubContent>
 
-        <div>{renderFormatter(snippetContentMD[0])}</div>
+              <div>
+                {renderFormatter(snippetApi.response.snippetContentMD[0])}
+              </div>
+            </Fragment>
+          )}
+        </LoadingContent>
       </Layout>
     </Fragment>
   );
