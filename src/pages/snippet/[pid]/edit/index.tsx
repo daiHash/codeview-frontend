@@ -12,10 +12,7 @@ import React, {
 } from "react";
 import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
-import {
-  getSnippetById,
-  getSnippetByIdAPI,
-} from "helpers/api/snippets/getSnippetById";
+import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
 import { updateSnippetById } from "helpers/api/snippets/updateSnippet";
 import { Button } from "components/Button";
