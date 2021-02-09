@@ -12,11 +12,16 @@ import React, {
 } from "react";
 import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
-import { getSnippetById } from "helpers/api/snippets/getSnippetById";
+import {
+  getSnippetById,
+  getSnippetByIdAPI,
+} from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
 import { updateSnippetById } from "helpers/api/snippets/updateSnippet";
 import { Button } from "components/Button";
 import deepEqual from "deep-equal";
+import { LoadingContent } from "components/Loading/LoadingContent";
+import { useApi } from "utils/api/useApi";
 
 // TODO: Add Styles
 
@@ -26,6 +31,14 @@ export default function EditSnippet() {
   const router = useRouter();
   const { pid } = router.query;
   const initialState = useRef<EditSnippet>(null);
+
+  const SnippetId = useMemo<string>(() => {
+    if (pid && typeof pid === "string") {
+      return pid;
+    }
+  }, [pid]);
+  const [snippetApi, getSnippet] = useApi(() => getSnippetByIdAPI(SnippetId));
+
   const [snippet, setSnippet] = useState<EditSnippet>({
     title: "",
     description: "",
@@ -86,16 +99,18 @@ export default function EditSnippet() {
 
   useEffect(() => {
     if (pid && typeof pid === "string") {
-      (async () => {
-        const currentSnippet = await getSnippetById(pid);
-
-        initialState.current = currentSnippet;
-        setSnippet((snippet) => {
-          return { ...snippet, ...currentSnippet };
-        });
-      })();
+      getSnippet();
     }
   }, [pid]);
+
+  useEffect(() => {
+    if (snippetApi.status === "succeeded") {
+      initialState.current = snippetApi.response;
+      setSnippet((snippet) => {
+        return { ...snippet, ...initialState.current };
+      });
+    }
+  }, [snippetApi.status]);
 
   useEffect(() => {
     setSnippet((v) => {
@@ -119,30 +134,38 @@ export default function EditSnippet() {
               </Button>
             </ButtonWrapper>
           </Heading>
+          <LoadingContent
+            isLoading={snippetApi.status === "loading"}
+            marginTop="20%"
+          >
+            {snippetApi.status === "succeeded" && (
+              <Fragment>
+                <InputsWrapper>
+                  <label>
+                    <span>Edit Title:</span>
+                    <input
+                      type="text"
+                      name="title"
+                      id="title"
+                      value={snippet.title}
+                      onChange={onInputChange}
+                    />
+                  </label>
+                  <label>
+                    <span>Edit Description:</span>
+                    <textarea
+                      name="description"
+                      id="description"
+                      value={snippet.description}
+                      onChange={onInputChange}
+                    />
+                  </label>
+                </InputsWrapper>
 
-          <InputsWrapper>
-            <label>
-              <span>Edit Title:</span>
-              <input
-                type="text"
-                name="title"
-                id="title"
-                value={snippet.title}
-                onChange={onInputChange}
-              />
-            </label>
-            <label>
-              <span>Edit Description:</span>
-              <textarea
-                name="description"
-                id="description"
-                value={snippet.description}
-                onChange={onInputChange}
-              />
-            </label>
-          </InputsWrapper>
-
-          <div>{renderEditor()}</div>
+                <div>{renderEditor()}</div>
+              </Fragment>
+            )}
+          </LoadingContent>
         </main>
       </Layout>
     </Fragment>

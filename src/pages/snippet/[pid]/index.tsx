@@ -49,7 +49,7 @@ export default function SnippetDetail() {
       <Layout>
         <LoadingContent
           isLoading={snippetApi.status === "loading"}
-          marginTop="40%"
+          marginTop="30%"
         >
           {snippetApi.status === "succeeded" && (
             <Fragment>

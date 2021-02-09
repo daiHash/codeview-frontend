@@ -102,7 +102,7 @@ export const LoadingIcon: React.FC<{ marginTop?: string }> = ({
 };
 
 const LoaderWrapper = styled.div<{ marginTop?: string }>`
-  margin-top: ${({ marginTop }) => marginTop ?? "30%"};
+  margin-top: ${({ marginTop }) => marginTop ?? "20%"};
   width: 100%;
   display: flex;
   justify-content: center;
