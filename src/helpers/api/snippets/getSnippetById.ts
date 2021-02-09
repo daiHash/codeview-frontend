@@ -1,15 +1,5 @@
-import { api } from "utils/api";
-import { formatDatetime } from "utils/formatDatetime";
+import { api2 } from "utils/api";
 import { Snippet } from "./types";
 
-export const getSnippetById = async (id: string) => {
-  const res = await api.get<Snippet>(`/snippets/${id}`);
-  if (!res) {
-    return null;
-  }
-  return {
-    ...res.data,
-    createdAt: formatDatetime(res.data.createdAt),
-    updatedAt: formatDatetime(res.data.updatedAt),
-  };
-};
+export const getSnippetByIdAPI = (id: string) =>
+  api2.get<Snippet>(`/snippets/${id}`);

@@ -1,18 +1,7 @@
-import { api } from "utils/api";
+import { api, api2 } from "utils/api";
 import { Snippet } from "./types";
 
-export const getLatestSnippets = async () => {
-  const res = await api.get<Snippet[]>("/guest/snippets");
-  if (!res) {
-    return [];
-  }
-  return res.data;
-};
+export const getLatestSnippetsAPI = () =>
+  api2.get<Snippet[]>("/guest/snippets");
 
-export const getMyLatestSnippets = async () => {
-  const res = await api.get<Snippet[]>("/snippets");
-  if (!res) {
-    return [];
-  }
-  return res.data;
-};
+export const getMyLatestSnippetsAPI = () => api2.get<Snippet[]>("/snippets");

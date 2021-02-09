@@ -1,17 +1,12 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, { Fragment, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
-import { Head } from "next/document";
-import { Snippet } from "helpers/api/snippets/types";
 import Image from "next/image";
-import { getMyLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
-import { SnippetCard } from "components/SnippetCard";
-import Link from "next/link";
 import { ButtonLink } from "components/Button/ButtonLink";
 import { generateRandomNumberInRange } from "utils/getRandomNumber";
 
 // TODO: Fix styles
-export default function MySnippets() {
+export default function NotFound() {
   const NotFoundGIF = useMemo(() => {
     const gifs = ["/404-1.gif", "/404-2.gif", "/404-3.gif"];
     return gifs[generateRandomNumberInRange(0, gifs.length)];

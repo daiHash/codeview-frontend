@@ -1,43 +1,40 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
 import { Head } from "next/document";
-import { Snippet } from "helpers/api/snippets/types";
-import { getMyLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
+import { getMyLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
+import { useApi } from "utils/api/useApi";
+import { LoadingContent } from "components/Loading/LoadingContent";
 
-// TODO: Fix styles
 export default function MySnippets() {
-  const [snippets, setSnippets] = useState<Snippet[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const snippets = await getMyLatestSnippets();
-
-      setSnippets(snippets);
-    })();
-  }, []);
+  const [snippetsApi, getSnippets] = useApi(getMyLatestSnippetsAPI, {
+    autoCall: true,
+  });
 
   return (
     <Fragment>
       {/* <Head>
-        <title>Code Snippet Memo | Snippet Memo</title>
+        <title>Code Snippet Memo | My Snippets</title>
       </Head> */}
 
       <Layout>
         <Title>My Code Snippets 📝:</Title>
         <MySnippetsList>
-          {snippets.map((snippet) => (
-            <li key={`${snippet.id}`}>
-              <Link href={`/snippet/${snippet.id}`}>
-                <a>
-                  <SnippetCard snippet={snippet} />
-                </a>
-              </Link>
-            </li>
-          ))}
-        </MySnippetsList>{" "}
+          <LoadingContent isLoading={snippetsApi.status === "loading"}>
+            {snippetsApi.status === "succeeded" &&
+              snippetsApi.response.map((snippet) => (
+                <li key={`${snippet.id}`}>
+                  <Link href={`/snippet/${snippet.id}`}>
+                    <a>
+                      <SnippetCard snippet={snippet} />
+                    </a>
+                  </Link>
+                </li>
+              ))}
+          </LoadingContent>
+        </MySnippetsList>
       </Layout>
     </Fragment>
   );
