@@ -30,8 +30,8 @@ export type UseApiResponse<T> =
       response: undefined;
     };
 
-export const useApi = <T>(
-  apiCall: () => Promise<ApiResponse<T>>,
+export const useApi = <T, ApiCallArgs extends unknown[] = []>(
+  apiCall: (...params: ApiCallArgs) => Promise<ApiResponse<T>>,
   options?: Options
 ) => {
   const defaultApiState: UseApiResponse<T> = {
@@ -45,11 +45,11 @@ export const useApi = <T>(
       ? { ...defaultApiState, status: "loading" }
       : defaultApiState
   );
-  const callApi = async () => {
+  const callApi = async (...params: Parameters<typeof apiCall>) => {
     if (!options?.autoCall) {
       setApiState({ ...defaultApiState, status: "loading" });
     }
-    const { error, data } = await apiCall();
+    const { error, data } = await apiCall(...params);
     if (error) {
       setApiState({
         ...defaultApiState,
@@ -69,7 +69,7 @@ export const useApi = <T>(
   };
   useEffect(() => {
     if (options?.autoCall) {
-      callApi();
+      (callApi as () => void)();
     }
   }, []);
   return [apiState, callApi] as const;

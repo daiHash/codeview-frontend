@@ -5,23 +5,6 @@ export const baseURL =
     ? "http://localhost:3000/api"
     : "https://code-snippet-memo.herokuapp.com/api";
 
-export const api = axios.create({
-  // baseURL: process.env.API_URL,
-  baseURL,
-  xsrfHeaderName: "X-CSRF-Token",
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    "Access-Control-Allow-Origin":
-      process.env.NODE_ENV !== "production"
-        ? "http://localhost:8080"
-        : "https://codesnippetmemo.vercel.app/",
-  },
-  responseType: "json",
-});
-
-// import axios, { AxiosError, AxiosRequestConfig } from "axios";
 export type ApiResponse<T> =
   | {
       error: undefined;
@@ -54,11 +37,15 @@ async function request<T>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
     return { error, data: undefined };
   }
 }
-export const api2 = {
+
+export const api = {
   get<R>(url: string) {
     return request<R>({ method: "get", url });
   },
   post<R>(url: string, data?: unknown) {
     return request<R>({ method: "post", url, data });
+  },
+  put<R>(url: string, data?: unknown) {
+    return request<R>({ method: "put", url, data });
   },
 };
