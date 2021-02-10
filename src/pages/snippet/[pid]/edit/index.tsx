@@ -14,13 +14,11 @@ import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
 import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
-import { updateSnippetById } from "helpers/api/snippets/updateSnippet";
+import { updateSnippetByIdAPI } from "helpers/api/snippets/updateSnippet";
 import { Button } from "components/Button";
 import deepEqual from "deep-equal";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useApi } from "utils/api/useApi";
-
-// TODO: Add Styles
 
 type EditSnippet = Pick<Snippet, "title" | "description" | "snippetContentMD">;
 
@@ -29,12 +27,8 @@ export default function EditSnippet() {
   const { pid } = router.query;
   const initialState = useRef<EditSnippet>(null);
 
-  const SnippetId = useMemo<string>(() => {
-    if (pid && typeof pid === "string") {
-      return pid;
-    }
-  }, [pid]);
-  const [snippetApi, getSnippet] = useApi(() => getSnippetByIdAPI(SnippetId));
+  const [snippetApi, getSnippet] = useApi(getSnippetByIdAPI);
+  const [updateSnippetApi, updateSnippetById] = useApi(updateSnippetByIdAPI);
 
   const [snippet, setSnippet] = useState<EditSnippet>({
     title: "",
@@ -51,16 +45,12 @@ export default function EditSnippet() {
 
   const updateSnippet = useCallback(async () => {
     if (pid && typeof pid === "string") {
-      const res = await updateSnippetById(pid, {
+      updateSnippetById(pid, {
         ...snippet,
         snippetContentMD: md ? [md] : snippet.snippetContentMD,
       });
-
-      if (res) {
-        router.push("/");
-      }
     }
-  }, [snippet, md]);
+  }, [snippet, md, pid]);
 
   const onInputChange = ({
     currentTarget: { name, value },
@@ -95,8 +85,14 @@ export default function EditSnippet() {
   }, []);
 
   useEffect(() => {
+    if (updateSnippetApi.status === "succeeded") {
+      router.push("/");
+    }
+  }, [updateSnippetApi.status]);
+
+  useEffect(() => {
     if (pid && typeof pid === "string") {
-      getSnippet();
+      getSnippet(pid);
     }
   }, [pid]);
 

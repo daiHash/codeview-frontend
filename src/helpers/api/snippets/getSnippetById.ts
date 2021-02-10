@@ -1,5 +1,5 @@
-import { api2 } from "utils/api";
+import { api } from "utils/api";
 import { Snippet } from "./types";
 
 export const getSnippetByIdAPI = (id: string) =>
-  api2.get<Snippet>(`/snippets/${id}`);
+  api.get<Snippet>(`/snippets/${id}`);
