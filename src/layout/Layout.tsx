@@ -20,7 +20,7 @@ export const Layout: React.FC<{ isAllowed?: boolean }> = ({
 const Main = styled.main`
   width: 80%;
   height: 100%;
-  min-height: calc(100vh - 200px - 80px);
+  min-height: calc(100vh - 100px - 80px);
   padding: 50px;
   margin: 50px auto;
   background: #fff;
