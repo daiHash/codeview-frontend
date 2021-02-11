@@ -42,7 +42,9 @@ export default function NotFound() {
 }
 
 const Title = styled.h2`
-  font-size: 32px;
+  text-align: center;
+  font-size: var(--fontSize-32);
+  margin-bottom: 20px;
 
   br {
     display: none;

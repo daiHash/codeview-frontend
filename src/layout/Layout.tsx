@@ -2,12 +2,16 @@ import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
+import { Forbidden } from "components/Forbidden";
 
-export const Layout: React.FC = ({ children }) => {
+export const Layout: React.FC<{ isAllowed?: boolean }> = ({
+  children,
+  isAllowed = true,
+}) => {
   return (
     <Fragment>
       <Header />
-      <Main>{children}</Main>
+      <Main>{isAllowed === false ? <Forbidden /> : children}</Main>
       <Footer />
     </Fragment>
   );
