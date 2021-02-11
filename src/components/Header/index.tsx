@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { useAppContext } from "context";
 import { ButtonLink } from "../Button/ButtonLink";
 import { HamburgerMenu } from "./HamburgerMenu";

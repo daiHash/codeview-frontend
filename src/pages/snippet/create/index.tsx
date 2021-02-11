@@ -14,10 +14,11 @@ import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
 import { Button } from "components/Button";
 import { Snippet } from "helpers/api/snippets/types";
-import deepEqual from "deep-equal";
+import { useAppContext } from "context";
 
 // TODO: Add Styles
 export default function CreateSnippet() {
+  const { isCurrentUser } = useAppContext();
   const router = useRouter();
   const initialState = useRef<
     Pick<Snippet, "title" | "description" | "snippetContentMD">
@@ -91,7 +92,7 @@ export default function CreateSnippet() {
         <title>Code Snippet Memo | Create New Snippet Memo</title>
       </Head>
 
-      <Layout>
+      <Layout isAllowed={!!isCurrentUser}>
         <main>
           <Heading>
             <h2>Add your Code Snippet</h2>

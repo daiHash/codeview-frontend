@@ -5,5 +5,9 @@ export type Snippet = {
   snippetContentMD: string[];
   createdAt: string;
   updatedAt: string;
+  userId: number;
+};
+
+export type UserSnippet = Snippet & {
   isUser: boolean | null;
 };

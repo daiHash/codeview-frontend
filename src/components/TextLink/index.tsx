@@ -7,6 +7,7 @@ type Props = {
   fontSize?: string;
   href: string;
   isRouterLink?: boolean;
+  onClick?: () => void;
 };
 
 export const TextLink: React.FC<Props> = ({
@@ -15,17 +16,18 @@ export const TextLink: React.FC<Props> = ({
   color,
   fontSize,
   isRouterLink,
+  onClick,
 }) => {
   return (
     <Fragment>
       {isRouterLink ? (
         <Link href={href}>
-          <A color={color} fontSize={fontSize} tabIndex={0}>
+          <A color={color} fontSize={fontSize} onClick={onClick}>
             {children}
           </A>
         </Link>
       ) : (
-        <A href={href} color={color} fontSize={fontSize}>
+        <A href={href} color={color} fontSize={fontSize} onClick={onClick}>
           {children}
         </A>
       )}

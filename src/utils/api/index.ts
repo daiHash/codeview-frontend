@@ -5,6 +5,11 @@ export const baseURL =
     ? "http://localhost:3000/api"
     : "https://code-snippet-memo.herokuapp.com/api";
 
+export const clientBaseURL =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:8080"
+    : "https://codesnippetmemo.vercel.app/";
+
 export type ApiResponse<T> =
   | {
       error: undefined;
@@ -14,6 +19,7 @@ export type ApiResponse<T> =
       error: AxiosError;
       data: undefined;
     };
+
 async function request<T>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
   try {
     const res = await axios.request<T>({
@@ -24,10 +30,7 @@ async function request<T>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "Access-Control-Allow-Origin":
-          process.env.NODE_ENV !== "production"
-            ? "http://localhost:8080"
-            : "https://codesnippetmemo.vercel.app/",
+        "Access-Control-Allow-Origin": clientBaseURL,
       },
       responseType: "json",
       ...config,
@@ -39,8 +42,8 @@ async function request<T>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
 }
 
 export const api = {
-  get<R>(url: string) {
-    return request<R>({ method: "get", url });
+  get<R>(url: string, options?: AxiosRequestConfig) {
+    return request<R>({ method: "get", url, ...options });
   },
   post<R>(url: string, data?: unknown) {
     return request<R>({ method: "post", url, data });

@@ -7,9 +7,11 @@ import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
+import { useAppContext } from "context";
 
 export default function MySnippets() {
-  const [snippetsApi, getSnippets] = useApi(getMyLatestSnippetsAPI, {
+  const { isCurrentUser } = useAppContext();
+  const [snippetsApi] = useApi(getMyLatestSnippetsAPI, {
     autoCall: true,
   });
 
@@ -19,7 +21,7 @@ export default function MySnippets() {
         <title>Code Snippet Memo | My Snippets</title>
       </Head> */}
 
-      <Layout>
+      <Layout isAllowed={!!isCurrentUser}>
         <Title>My Code Snippets 📝:</Title>
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>

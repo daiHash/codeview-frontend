@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { api } from "utils/api";
 import React, {
   Fragment,
   useCallback,
@@ -19,10 +18,12 @@ import { Button } from "components/Button";
 import deepEqual from "deep-equal";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useApi } from "utils/api/useApi";
+import { useAppContext } from "context";
 
 type EditSnippet = Pick<Snippet, "title" | "description" | "snippetContentMD">;
 
 export default function EditSnippet() {
+  const { isCurrentUser } = useAppContext();
   const router = useRouter();
   const { pid } = router.query;
   const initialState = useRef<EditSnippet>(null);
@@ -117,49 +118,50 @@ export default function EditSnippet() {
         <title>Code Snippet Memo | Edit Snippet Memo</title>
       </Head>
 
-      <Layout>
-        <main>
-          <Heading>
-            <h2>Edit your Code Snippet</h2>
-            <ButtonWrapper>
-              <Button onClick={updateSnippet} disabled={disableButton}>
-                Update Code Snippet
-              </Button>
-            </ButtonWrapper>
-          </Heading>
-          <LoadingContent
-            isLoading={snippetApi.status === "loading"}
-            marginTop="20%"
-          >
-            {snippetApi.status === "succeeded" && (
-              <Fragment>
-                <InputsWrapper>
-                  <label>
-                    <span>Edit Title:</span>
-                    <input
-                      type="text"
-                      name="title"
-                      id="title"
-                      value={snippet.title}
-                      onChange={onInputChange}
-                    />
-                  </label>
-                  <label>
-                    <span>Edit Description:</span>
-                    <textarea
-                      name="description"
-                      id="description"
-                      value={snippet.description}
-                      onChange={onInputChange}
-                    />
-                  </label>
-                </InputsWrapper>
+      <Layout isAllowed={!!isCurrentUser && snippetApi.response?.isUser}>
+        <LoadingContent
+          isLoading={
+            snippetApi.status === "loading" || initialState.current === null
+          }
+          marginTop="20%"
+        >
+          {snippetApi.status === "succeeded" && (
+            <Fragment>
+              <Heading>
+                <h2>Edit your Code Snippet</h2>
+                <ButtonWrapper>
+                  <Button onClick={updateSnippet} disabled={disableButton}>
+                    Update Code Snippet
+                  </Button>
+                </ButtonWrapper>
+              </Heading>
 
-                <div>{renderEditor()}</div>
-              </Fragment>
-            )}
-          </LoadingContent>
-        </main>
+              <InputsWrapper>
+                <label>
+                  <span>Edit Title:</span>
+                  <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    value={snippet.title}
+                    onChange={onInputChange}
+                  />
+                </label>
+                <label>
+                  <span>Edit Description:</span>
+                  <textarea
+                    name="description"
+                    id="description"
+                    value={snippet.description}
+                    onChange={onInputChange}
+                  />
+                </label>
+              </InputsWrapper>
+
+              <div>{renderEditor()}</div>
+            </Fragment>
+          )}
+        </LoadingContent>
       </Layout>
     </Fragment>
   );
