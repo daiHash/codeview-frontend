@@ -7,6 +7,7 @@ const initialStatus: UserStatus = {
   username: "",
   avatarUrl: "",
   snippets: [],
+  id: 0,
 };
 
 const AppContext = createContext<UserStatus>(initialStatus);
