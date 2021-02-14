@@ -3,6 +3,7 @@ export type Snippet = {
   title: string;
   description: string;
   snippetContentMD: string[];
+  tags: string[];
   createdAt: string;
   updatedAt: string;
   userId: number;

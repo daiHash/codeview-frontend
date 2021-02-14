@@ -25,10 +25,12 @@ export default function CreateSnippet() {
   >({
     title: "",
     description: "",
-    snippetContentMD: [""],
+    snippetContentMD: [],
+    // tags: [],
   });
   const { renderEditor, md } = useMDEditor();
 
+  // TODO: Handle tags inputs
   const [snippet, setSnippet] = useState({
     title: "",
     description: "",
@@ -48,6 +50,7 @@ export default function CreateSnippet() {
       title,
       description,
       snippetContentMD: [md],
+      tags: [],
     });
 
     if (res) {

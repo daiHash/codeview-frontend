@@ -2,13 +2,13 @@ import styled from "@emotion/styled";
 import React, { Fragment } from "react";
 import { useAppContext } from "context";
 import { ButtonLink } from "../Button/ButtonLink";
-import { HamburgerMenu } from "./HamburgerMenu";
+import { LoggedInMenu } from "./LoggedInMenu";
 import { TextLink } from "../TextLink";
 import { SignInMenu } from "./SignInMenu";
 import { useCheckIsPCSize } from "utils/hooks/useCheckIsPCSize";
 
 export const Header = () => {
-  const { isCurrentUser } = useAppContext();
+  const { isCurrentUser, avatarUrl } = useAppContext();
   const isPCSize = useCheckIsPCSize();
 
   return (
@@ -22,7 +22,8 @@ export const Header = () => {
           <ButtonLink href="/snippet/create" isRouterLink>
             Create New Snippet
           </ButtonLink>
-          <HamburgerMenu />
+
+          <LoggedInMenu avatarUrl={avatarUrl} />
         </Fragment>
       ) : (
         <SignInMenu />

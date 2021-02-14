@@ -38,6 +38,10 @@ const Card = styled.div`
   background: #fff;
   border-radius: 4px;
   box-shadow: 2px 2px 4px 0px rgba(50, 50, 50, 0.75);
+
+  p {
+    word-wrap: break-word;
+  }
 `;
 
 const Datetime = styled.div`

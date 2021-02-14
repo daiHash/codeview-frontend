@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import React, { Fragment, useMemo } from "react";
-import HamburgerIconAsset from "./assets/Hamburger-Icon.svg";
-import Image from "next/image";
+// import HamburgerIconAsset from "./assets/Hamburger-Icon.svg";
+// import Image from "next/image";
 import { TextLink } from "../TextLink";
 import { useToggle } from "utils/hooks/useToggle";
 
-export const HamburgerMenu: React.FC = () => {
+export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
+  avatarUrl,
+}) => {
   const [isOpen, toggle] = useToggle(false);
 
   // TODO: set env vars for this
@@ -17,26 +19,41 @@ export const HamburgerMenu: React.FC = () => {
     []
   );
 
+  const onToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget);
+    if (!e.currentTarget) {
+      console.log("wtf");
+    }
+  };
+
   return (
     <Fragment>
       <MenuButton
         aria-controls="global-nav"
         aria-haspopup="true"
         id="menu-button"
+        // onClick={onToggle}
         onClick={toggle}
+        // onMouseEnter={() => toggle(true)}
+        // onMouseLeave={() => toggle(false)}
       >
-        <Image
+        <img src={avatarUrl} alt="" width={50} height={50} aria-hidden />
+        {/* <Image
           src={HamburgerIconAsset}
           alt=""
           width={20}
           height={15}
           aria-hidden
         />
-        <span>MENU</span>
+        <span>MENU</span> */}
       </MenuButton>
 
       {isOpen && (
-        <MenuContent id="global-nav" aria-label="Main navigation">
+        <MenuContent
+          id="global-nav"
+          aria-label="Main navigation"
+          // onMouseEnter={() => toggle(true)}
+        >
           <ul>
             <li>
               <TextLink href="/profile" isRouterLink>
@@ -65,6 +82,12 @@ export const HamburgerMenu: React.FC = () => {
 
 const MenuButton = styled.button`
   margin-left: 40px;
+  cursor: pointer;
+
+  img {
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+  }
 
   span {
     display: block;
