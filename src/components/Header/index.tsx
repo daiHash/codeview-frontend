@@ -11,23 +11,28 @@ export const Header = () => {
   const { isCurrentUser, avatarUrl } = useAppContext();
   const isPCSize = useCheckIsPCSize();
 
+  console.log({ isCurrentUser });
+
   return (
     <StyledHeader>
       <TextLink href="/" isRouterLink>
         <h2>{isPCSize ? "Code Snippet Memo" : "CSM📝"}</h2>
       </TextLink>
 
-      {isCurrentUser && isCurrentUser !== undefined ? (
-        <Fragment>
-          <ButtonLink href="/snippet/create" isRouterLink>
-            Create New Snippet
-          </ButtonLink>
+      {/* TODO: Maybe handle with loader */}
+      {isCurrentUser !== undefined ? (
+        isCurrentUser ? (
+          <Fragment>
+            <ButtonLink href="/snippet/create" isRouterLink>
+              Create New Snippet
+            </ButtonLink>
 
-          <LoggedInMenu avatarUrl={avatarUrl} />
-        </Fragment>
-      ) : (
-        <SignInMenu />
-      )}
+            <LoggedInMenu avatarUrl={avatarUrl} />
+          </Fragment>
+        ) : (
+          <SignInMenu />
+        )
+      ) : null}
     </StyledHeader>
   );
 };
