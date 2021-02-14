@@ -27,20 +27,21 @@ export default function Home() {
         <Title>Latest Code Snippets:</Title>
         <LatestSnippets>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
-            {snippetsApi.status === "succeeded" &&
-            snippetsApi.response.length > 0 ? (
-              snippetsApi.response.map((snippet) => (
-                <li key={`${snippet.id}`}>
-                  <Link href={`/snippet/${snippet.id}`}>
-                    <a>
-                      <SnippetCard snippet={snippet} />
-                    </a>
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <EmptyContent />
-            )}
+            {snippetsApi.status === "succeeded" ? (
+              snippetsApi.response.length > 0 ? (
+                snippetsApi.response.map((snippet) => (
+                  <li key={`${snippet.id}`}>
+                    <Link href={`/snippet/${snippet.id}`}>
+                      <a>
+                        <SnippetCard snippet={snippet} />
+                      </a>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <EmptyContent />
+              )
+            ) : null}
           </LoadingContent>
         </LatestSnippets>
       </Layout>

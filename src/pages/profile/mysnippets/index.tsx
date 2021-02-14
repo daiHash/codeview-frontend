@@ -26,20 +26,21 @@ export default function MySnippets() {
         <Title>My Code Snippets 📝:</Title>
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
-            {snippetsApi.status === "succeeded" &&
-            snippetsApi.response.length > 0 ? (
-              snippetsApi.response.map((snippet) => (
-                <li key={`${snippet.id}`}>
-                  <Link href={`/snippet/${snippet.id}`}>
-                    <a>
-                      <SnippetCard snippet={snippet} />
-                    </a>
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <EmptyContent />
-            )}
+            {snippetsApi.status === "succeeded" ? (
+              snippetsApi.response.length > 0 ? (
+                snippetsApi.response.map((snippet) => (
+                  <li key={`${snippet.id}`}>
+                    <Link href={`/snippet/${snippet.id}`}>
+                      <a>
+                        <SnippetCard snippet={snippet} />
+                      </a>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <EmptyContent />
+              )
+            ) : null}
           </LoadingContent>
         </MySnippetsList>
       </Layout>
