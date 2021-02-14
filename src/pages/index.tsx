@@ -7,6 +7,7 @@ import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
+import { EmptyContent } from "components/EmptyContent";
 
 export default function Home() {
   const [snippetsApi, getSnippets] = useApi(getLatestSnippetsAPI);
@@ -27,6 +28,7 @@ export default function Home() {
         <LatestSnippets>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" &&
+            snippetsApi.response.length > 0 ? (
               snippetsApi.response.map((snippet) => (
                 <li key={`${snippet.id}`}>
                   <Link href={`/snippet/${snippet.id}`}>
@@ -35,7 +37,10 @@ export default function Home() {
                     </a>
                   </Link>
                 </li>
-              ))}
+              ))
+            ) : (
+              <EmptyContent />
+            )}
           </LoadingContent>
         </LatestSnippets>
       </Layout>
