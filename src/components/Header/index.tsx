@@ -11,8 +11,6 @@ export const Header = () => {
   const { isCurrentUser, avatarUrl } = useAppContext();
   const isPCSize = useCheckIsPCSize();
 
-  console.log({ isCurrentUser });
-
   return (
     <StyledHeader>
       <TextLink href="/" isRouterLink>
