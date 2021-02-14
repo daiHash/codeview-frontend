@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useAppContext } from "context";
+import { EmptyContent } from "components/EmptyContent";
 
 export default function MySnippets() {
   const { isCurrentUser } = useAppContext();
@@ -26,6 +27,7 @@ export default function MySnippets() {
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" &&
+            snippetsApi.response.length > 0 ? (
               snippetsApi.response.map((snippet) => (
                 <li key={`${snippet.id}`}>
                   <Link href={`/snippet/${snippet.id}`}>
@@ -34,7 +36,10 @@ export default function MySnippets() {
                     </a>
                   </Link>
                 </li>
-              ))}
+              ))
+            ) : (
+              <EmptyContent />
+            )}
           </LoadingContent>
         </MySnippetsList>
       </Layout>
