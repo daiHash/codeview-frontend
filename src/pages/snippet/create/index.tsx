@@ -15,25 +15,25 @@ import { useMDEditor } from "components/hooks/useMDEditor";
 import { Button } from "components/Button";
 import { Snippet } from "helpers/api/snippets/types";
 import { useAppContext } from "context";
+import { TagsInput } from "components/Input/TagsInput";
 
-// TODO: Add Styles
 export default function CreateSnippet() {
   const { isCurrentUser } = useAppContext();
   const router = useRouter();
   const initialState = useRef<
-    Pick<Snippet, "title" | "description" | "snippetContentMD">
+    Pick<Snippet, "title" | "description" | "snippetContentMD" | "tags">
   >({
     title: "",
     description: "",
-    snippetContentMD: [],
-    // tags: [],
+    snippetContentMD: [""],
+    tags: [""],
   });
   const { renderEditor, md } = useMDEditor();
 
-  // TODO: Handle tags inputs
   const [snippet, setSnippet] = useState({
     title: "",
     description: "",
+    tags: "",
   });
 
   const disableButton = useMemo(() => {
@@ -41,16 +41,18 @@ export default function CreateSnippet() {
       ? true
       : initialState.current.title === snippet.title ||
           initialState.current.description === snippet.description ||
-          initialState.current.snippetContentMD[0] === md;
+          initialState.current.snippetContentMD[0] === md ||
+          initialState.current.tags[0] === snippet.tags;
   }, [snippet, initialState.current, md]);
 
   const createSnippet = useCallback(async () => {
-    const { title, description } = snippet;
+    const { title, description, tags } = snippet;
+
     const res = await api.post("/snippets", {
       title,
       description,
       snippetContentMD: [md],
-      tags: [],
+      tags: [...new Set(tags.split(", "))],
     });
 
     if (res) {
@@ -58,11 +60,17 @@ export default function CreateSnippet() {
     }
   }, [snippet, md]);
 
-  const onInputChange = ({
-    currentTarget: { name, value },
-  }:
-    | React.ChangeEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.currentTarget;
+    if (value.split(",").length > 4) {
+      e.preventDefault();
+      return;
+    }
+
     setSnippet((v) => {
       return { ...v, [name]: value };
     });
@@ -76,6 +84,18 @@ export default function CreateSnippet() {
       return;
     }
     sessionStorage.setItem("currentSnippet", JSON.stringify({ [name]: value }));
+  };
+
+  const handleTagsKeyInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    if (e.key === "," && value.length > 0 && value.split(",").length <= 4) {
+      setSnippet((v) => {
+        return {
+          ...v,
+          tags: value.split(", ").length >= 4 ? v.tags : `${v.tags} `,
+        };
+      });
+    }
   };
 
   useEffect(() => {
@@ -113,15 +133,23 @@ export default function CreateSnippet() {
                 type="text"
                 name="title"
                 id="title"
+                placeholder="New snippet title here..."
                 value={snippet.title}
                 onChange={onInputChange}
               />
             </label>
+
+            <TagsInput
+              onChange={onInputChange}
+              keyHandler={handleTagsKeyInput}
+              value={snippet.tags}
+            />
             <label>
               <span>Add Description:</span>
               <textarea
                 name="description"
                 id="description"
+                placeholder="Write a brief description here..."
                 value={snippet.description}
                 onChange={onInputChange}
               />

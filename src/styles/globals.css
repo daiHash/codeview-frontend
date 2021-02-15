@@ -53,6 +53,11 @@ textarea:focus {
   border-color: #4568fb;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: #575757;
+}
+
 @media (prefers-color-scheme: dark) {
   pre {
     background-color: #193549 !important;
