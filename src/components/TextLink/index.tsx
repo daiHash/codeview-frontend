@@ -22,12 +22,18 @@ export const TextLink: React.FC<Props> = ({
     <Fragment>
       {isRouterLink ? (
         <Link href={href}>
-          <A color={color} fontSize={fontSize} onClick={onClick}>
+          <A color={color} fontSize={fontSize} onClick={onClick} tabIndex={0}>
             {children}
           </A>
         </Link>
       ) : (
-        <A href={href} color={color} fontSize={fontSize} onClick={onClick}>
+        <A
+          href={href}
+          color={color}
+          fontSize={fontSize}
+          onClick={onClick}
+          tabIndex={0}
+        >
           {children}
         </A>
       )}
