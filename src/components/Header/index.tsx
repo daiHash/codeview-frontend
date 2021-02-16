@@ -54,4 +54,8 @@ const StyledHeader = styled.header`
       margin-right: auto;
     }
   }
+
+  @media screen and (max-width: 600px) {
+    padding: 0 10px;
+  }
 `;

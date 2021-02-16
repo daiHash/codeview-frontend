@@ -54,8 +54,6 @@ export default function EditSnippet() {
           initialState.current.tags.join(", ") === snippet.tags;
   }, [snippet, initialState.current]);
 
-  console.log("disableButton", disableButton);
-
   const updateSnippet = useCallback(async () => {
     const { snippetContentMD, tags } = snippet;
     if (pid && typeof pid === "string") {

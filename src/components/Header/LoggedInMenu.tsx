@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import React, { Fragment, useMemo } from "react";
-// import HamburgerIconAsset from "./assets/Hamburger-Icon.svg";
-// import Image from "next/image";
 import { TextLink } from "../TextLink";
 import { useToggle } from "utils/hooks/useToggle";
 
@@ -37,15 +35,8 @@ export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
         // onMouseEnter={() => toggle(true)}
         // onMouseLeave={() => toggle(false)}
       >
-        <img src={avatarUrl} alt="" width={50} height={50} aria-hidden />
-        {/* <Image
-          src={HamburgerIconAsset}
-          alt=""
-          width={20}
-          height={15}
-          aria-hidden
-        />
-        <span>MENU</span> */}
+        <img src={avatarUrl} alt="" width={45} height={45} aria-hidden />
+        <span />
       </MenuButton>
 
       {isOpen && (
@@ -81,6 +72,8 @@ export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
 };
 
 const MenuButton = styled.button`
+  display: flex;
+  align-items: center;
   margin-left: 40px;
   cursor: pointer;
 
@@ -90,8 +83,17 @@ const MenuButton = styled.button`
   }
 
   span {
-    display: block;
-    font-size: var(--fontSize-14);
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    vertical-align: middle;
+    content: "";
+    border-top-style: solid;
+    border-top-width: 4px;
+    border-right: 4px solid transparent;
+    border-bottom: 0 solid transparent;
+    border-left: 4px solid transparent;
   }
 
   @media screen and (max-width: 600px) {
