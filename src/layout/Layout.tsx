@@ -11,7 +11,15 @@ export const Layout: React.FC<{ isAllowed?: boolean }> = ({
   return (
     <Fragment>
       <Header />
-      <Main>{isAllowed === false ? <Forbidden /> : children}</Main>
+      <Main>
+        {isAllowed !== undefined ? (
+          isAllowed === false ? (
+            <Forbidden />
+          ) : (
+            children
+          )
+        ) : null}
+      </Main>
       <Footer />
     </Fragment>
   );

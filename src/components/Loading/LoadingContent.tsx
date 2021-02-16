@@ -7,8 +7,7 @@ export const LoadingContent: React.FC<{
 }> = ({ children, isLoading, marginTop }) => {
   return (
     <Fragment>
-      {isLoading && <LoadingIcon marginTop={marginTop} />}
-      {children}
+      {isLoading ? <LoadingIcon marginTop={marginTop} /> : children}
     </Fragment>
   );
 };
