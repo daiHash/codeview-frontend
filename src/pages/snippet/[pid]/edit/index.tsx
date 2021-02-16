@@ -19,8 +19,12 @@ import deepEqual from "deep-equal";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
+import { TagsInput } from "components/Input/TagsInput";
 
-type EditSnippet = Pick<Snippet, "title" | "description" | "snippetContentMD">;
+type EditSnippet = Pick<
+  Snippet,
+  "title" | "description" | "snippetContentMD" | "tags"
+>;
 
 export default function EditSnippet() {
   const { isCurrentUser } = useAppContext();
@@ -31,10 +35,13 @@ export default function EditSnippet() {
   const [snippetApi, getSnippet] = useApi(getSnippetByIdAPI);
   const [updateSnippetApi, updateSnippetById] = useApi(updateSnippetByIdAPI);
 
-  const [snippet, setSnippet] = useState<EditSnippet>({
+  const [snippet, setSnippet] = useState<
+    Omit<EditSnippet, "tags"> & { tags: string }
+  >({
     title: "",
     description: "",
     snippetContentMD: [""],
+    tags: "",
   });
   const { renderEditor, md } = useMDEditor(snippet.snippetContentMD[0]);
 
@@ -45,19 +52,27 @@ export default function EditSnippet() {
   }, [snippet, initialState.current]);
 
   const updateSnippet = useCallback(async () => {
+    const { snippetContentMD, tags } = snippet;
     if (pid && typeof pid === "string") {
       updateSnippetById(pid, {
         ...snippet,
-        snippetContentMD: md ? [md] : snippet.snippetContentMD,
+        snippetContentMD: md ? [md] : snippetContentMD,
+        tags: [...new Set(tags.split(", "))],
       });
     }
   }, [snippet, md, pid]);
 
-  const onInputChange = ({
-    currentTarget: { name, value },
-  }:
-    | React.ChangeEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.currentTarget;
+    if (value.split(",").length > 4) {
+      e.preventDefault();
+      return;
+    }
+
     setSnippet((v) => {
       return { ...v, [name]: value };
     });
@@ -71,6 +86,18 @@ export default function EditSnippet() {
       return;
     }
     sessionStorage.setItem("currentSnippet", JSON.stringify({ [name]: value }));
+  };
+
+  const handleTagsKeyInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    if (e.key === "," && value.length > 0 && value.split(",").length <= 4) {
+      setSnippet((v) => {
+        return {
+          ...v,
+          tags: value.split(", ").length >= 4 ? v.tags : `${v.tags} `,
+        };
+      });
+    }
   };
 
   // TODO: Fix to keep state of session
@@ -101,7 +128,13 @@ export default function EditSnippet() {
     if (snippetApi.status === "succeeded") {
       initialState.current = snippetApi.response;
       setSnippet((snippet) => {
-        return { ...snippet, ...initialState.current };
+        return {
+          ...snippet,
+          ...{
+            ...initialState.current,
+            tags: initialState.current.tags.join(", "),
+          },
+        };
       });
     }
   }, [snippetApi.status]);
@@ -147,6 +180,11 @@ export default function EditSnippet() {
                     onChange={onInputChange}
                   />
                 </label>
+                <TagsInput
+                  onChange={onInputChange}
+                  keyHandler={handleTagsKeyInput}
+                  value={snippet.tags}
+                />
                 <label>
                   <span>Edit Description:</span>
                   <textarea
