@@ -31,7 +31,7 @@ export const ButtonLink: React.FC<Props> = ({
           {children}
         </A>
       ) : isRouterLink ? (
-        <Link href={href}>
+        <Link href={href} passHref>
           <A invert={invert} tabIndex={0} disabled={disabled}>
             {children}
           </A>
