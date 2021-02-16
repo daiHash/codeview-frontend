@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
+import { Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
 import React, { useMemo } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
-  snippet: { title, description, createdAt, updatedAt },
+  snippet: { title, description, createdAt, updatedAt, tags },
 }) => {
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
     createdAt,
@@ -15,6 +16,14 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
     <Card>
       <h3>{title}</h3>
       <p>{description}</p>
+
+      <Tags>
+        {tags.map((tag, i) => (
+          <li key={`${tag}-${i}`}>
+            <Tag text={tag} />
+          </li>
+        ))}
+      </Tags>
 
       <Datetime>
         <p>
@@ -41,6 +50,17 @@ const Card = styled.div`
 
   p {
     word-wrap: break-word;
+  }
+`;
+
+const Tags = styled.ul`
+  display: flex;
+  margin-top: 8px;
+
+  > li {
+    & + li {
+      margin-left: 5px;
+    }
   }
 `;
 

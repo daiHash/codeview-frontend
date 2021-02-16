@@ -57,7 +57,7 @@ const MySnippetsList = styled.ul`
   flex-flow: row wrap;
   justify-content: space-between;
 
-  li {
+  > li {
     width: calc((100% - 40px) / 2);
     margin-top: 25px;
 

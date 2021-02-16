@@ -9,6 +9,7 @@ import { Button } from "components/Button";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { formatDatetime } from "utils/formatDatetime";
+import { Tag } from "components/Tag";
 
 export default function SnippetDetail() {
   const router = useRouter();
@@ -55,6 +56,13 @@ export default function SnippetDetail() {
             <Fragment>
               <h2>{snippetApi.response.title}</h2>
               <p>{snippetApi.response.description}</p>
+              <Tags>
+                {snippetApi.response.tags.map((tag, i) => (
+                  <li key={`${tag}-${i}`}>
+                    <Tag text={tag} href={`/snippets/${tag}`} isRouterLink />
+                  </li>
+                ))}
+              </Tags>
               <SubContent>
                 <p>
                   Created:
@@ -103,6 +111,19 @@ export default function SnippetDetail() {
     </Fragment>
   );
 }
+
+const Tags = styled.ul`
+  display: flex;
+  margin-top: 8px;
+
+  > li {
+    & + li {
+      margin-left: 5px;
+      a {
+      }
+    }
+  }
+`;
 
 const SubContent = styled.div`
   display: flex;
