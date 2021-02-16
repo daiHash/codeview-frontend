@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { TextLink } from "components/TextLink";
+import { TagResponse } from "helpers/api/snippets/getSnippetTags";
 import { Fragment } from "react";
 
 type TagStyles = {
@@ -16,6 +17,14 @@ type Props = {
   | { isRouterLink: true; href: string }
   | { isRouterLink?: undefined; href?: undefined }
 );
+
+export const sortTagsWithId = (tags: TagResponse[]) => {
+  return tags.sort((a, b) => a.tag.localeCompare(b.tag));
+};
+
+export const sortTags = (tags: string[]) => {
+  return tags.sort((a, b) => a.localeCompare(b));
+};
 
 export const Tag: React.FC<Props> = (props) => {
   const { text, styles } = props;
