@@ -65,7 +65,7 @@ const MySnippetsList = styled.ul`
       margin-right: 20px;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       width: 100%;
 
       &:nth-of-type(odd) {

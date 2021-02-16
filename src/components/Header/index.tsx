@@ -22,7 +22,7 @@ export const Header = () => {
         isCurrentUser ? (
           <Fragment>
             <ButtonLink href="/snippet/create" isRouterLink>
-              Create New Snippet
+              Create Snippet
             </ButtonLink>
 
             <LoggedInMenu avatarUrl={avatarUrl} />

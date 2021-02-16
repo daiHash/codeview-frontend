@@ -1,29 +1,39 @@
-import Head from "next/head";
-import styled from "@emotion/styled";
-import React, { Fragment, useEffect } from "react";
 import { Layout } from "layout/Layout";
-import { getLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
-import { SnippetCard } from "components/SnippetCard";
-import Link from "next/link";
-import { useApi } from "utils/api/useApi";
-import { LoadingContent } from "components/Loading/LoadingContent";
+import { Head } from "next/document";
+import styled from "@emotion/styled";
+import { useRouter } from "next/router";
+import React, { Fragment, useEffect } from "react";
 import { EmptyContent } from "components/EmptyContent";
+import { LoadingContent } from "components/Loading/LoadingContent";
+import { SnippetCard } from "components/SnippetCard";
+import { getLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
+import { useApi } from "utils/api/useApi";
+import Link from "next/link";
 
-export default function Home() {
-  const [snippetsApi] = useApi(getLatestSnippetsAPI, {
-    autoCall: true,
-  });
+export default function SnippetsByTag() {
+  const router = useRouter();
+  const { tag } = router.query;
+
+  const [snippetsApi, getSnippet] = useApi(getLatestSnippetsAPI);
+
+  useEffect(() => {
+    if (tag && typeof tag === "string") {
+      getSnippet({ search: `tags=${tag}` });
+    }
+  }, [tag]);
 
   return (
     <Fragment>
-      <Head>
+      {/* <Head>
         <title>Code Snippet Memo</title>
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> */}
 
       <Layout>
-        <Title>Latest Code Snippets:</Title>
-        <LatestSnippets>
+        <Title>
+          Tag: <span>{tag}</span>
+        </Title>
+        <TagSnippets>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (
               snippetsApi.response.length > 0 ? (
@@ -41,15 +51,19 @@ export default function Home() {
               )
             ) : null}
           </LoadingContent>
-        </LatestSnippets>
+        </TagSnippets>
       </Layout>
     </Fragment>
   );
 }
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  span {
+    color: #4568fb;
+  }
+`;
 
-const LatestSnippets = styled.ul`
+const TagSnippets = styled.ul`
   width: 100%;
   padding-left: 0;
   display: flex;
