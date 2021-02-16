@@ -28,10 +28,12 @@ export const TagsInput: React.FC<Props> = ({ onChange, value, keyHandler }) => {
 
   return (
     <label>
+      Add Tags(Up to 4 tags)
       <input
         type="text"
         name="tags"
-        placeholder="Add tags here. (ie. javascript, css, etc)"
+        placeholder="ie. javascript, css, etc"
+        title="Add up to 4 tags(ie. javascript, css, etc)"
         value={value}
         onKeyUp={handleKeyUp}
         onKeyDown={handleKeyDown}
