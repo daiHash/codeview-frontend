@@ -55,11 +55,12 @@ const Card = styled.div`
 
 const Tags = styled.ul`
   display: flex;
+  flex-flow: row wrap;
   margin-top: 8px;
 
   > li {
-    & + li {
-      margin-left: 5px;
+    &:not(:last-of-type) {
+      margin-right: 5px;
     }
   }
 `;

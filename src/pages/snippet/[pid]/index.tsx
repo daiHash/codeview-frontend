@@ -114,13 +114,12 @@ export default function SnippetDetail() {
 
 const Tags = styled.ul`
   display: flex;
+  flex-flow: row wrap;
   margin-top: 8px;
 
   > li {
-    & + li {
-      margin-left: 5px;
-      a {
-      }
+    &:not(:last-of-type) {
+      margin-right: 5px;
     }
   }
 `;
