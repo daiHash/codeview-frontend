@@ -51,7 +51,10 @@ export default function SnippetsByTag() {
           ))}
         </OtherTags>
         <TagSnippets>
-          <LoadingContent isLoading={snippetsApi.status === "loading"}>
+          <LoadingContent
+            isLoading={snippetsApi.status === "loading"}
+            marginTop="80px"
+          >
             {snippetsApi.status === "succeeded" ? (
               snippetsApi.response.length > 0 ? (
                 snippetsApi.response.map((snippet) => (
