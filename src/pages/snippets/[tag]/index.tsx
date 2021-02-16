@@ -2,25 +2,34 @@ import { Layout } from "layout/Layout";
 import { Head } from "next/document";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { EmptyContent } from "components/EmptyContent";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { SnippetCard } from "components/SnippetCard";
 import { getLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
 import { useApi } from "utils/api/useApi";
 import Link from "next/link";
+import { useAppContext } from "context";
+import { sortTagsWithId, Tag } from "components/Tag";
 
 export default function SnippetsByTag() {
+  const { tags } = useAppContext();
   const router = useRouter();
-  const { tag } = router.query;
+  const { tag: currentTag } = router.query;
 
   const [snippetsApi, getSnippet] = useApi(getLatestSnippetsAPI);
 
+  const otherTags = useMemo(() => {
+    return currentTag && typeof currentTag === "string"
+      ? sortTagsWithId(tags).filter(({ tag }) => tag !== currentTag)
+      : tags;
+  }, [tags, currentTag]);
+
   useEffect(() => {
-    if (tag && typeof tag === "string") {
-      getSnippet({ search: `tags=${tag}` });
+    if (currentTag && typeof currentTag === "string") {
+      getSnippet({ search: `tags=${currentTag}` });
     }
-  }, [tag]);
+  }, [currentTag]);
 
   return (
     <Fragment>
@@ -31,8 +40,16 @@ export default function SnippetsByTag() {
 
       <Layout>
         <Title>
-          Tag: <span>{tag}</span>
+          Tag: <span>{currentTag}</span>
         </Title>
+        <h4>Other tags:</h4>
+        <OtherTags>
+          {otherTags.map(({ id, tag }) => (
+            <li key={`${tag}-${id}`}>
+              <Tag text={tag} href={`/snippets/${tag}`} isRouterLink />
+            </li>
+          ))}
+        </OtherTags>
         <TagSnippets>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (
@@ -57,7 +74,20 @@ export default function SnippetsByTag() {
   );
 }
 
+const OtherTags = styled.ul`
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 8px;
+
+  > li {
+    &:not(:last-of-type) {
+      margin-right: 8px;
+    }
+  }
+`;
+
 const Title = styled.h2`
+  margin-bottom: 10px;
   span {
     color: #4568fb;
   }

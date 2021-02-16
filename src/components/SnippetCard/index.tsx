@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Tag } from "components/Tag";
+import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
 import React, { useMemo } from "react";
 import { formatDatetime } from "utils/formatDatetime";
@@ -18,7 +18,7 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
       <p>{description}</p>
 
       <Tags>
-        {tags.map((tag, i) => (
+        {sortTags(tags).map((tag, i) => (
           <li key={`${tag}-${i}`}>
             <Tag text={tag} />
           </li>

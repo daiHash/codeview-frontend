@@ -9,7 +9,7 @@ import { Button } from "components/Button";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { formatDatetime } from "utils/formatDatetime";
-import { Tag } from "components/Tag";
+import { sortTags, Tag } from "components/Tag";
 
 export default function SnippetDetail() {
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function SnippetDetail() {
               <h2>{snippetApi.response.title}</h2>
               <p>{snippetApi.response.description}</p>
               <Tags>
-                {snippetApi.response.tags.map((tag, i) => (
+                {sortTags(snippetApi.response.tags).map((tag, i) => (
                   <li key={`${tag}-${i}`}>
                     <Tag text={tag} href={`/snippets/${tag}`} isRouterLink />
                   </li>
