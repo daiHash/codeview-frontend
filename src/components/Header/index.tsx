@@ -40,7 +40,7 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  min-width: 375px;
+  min-width: 320px;
   height: 80px;
   padding: 0 20px;
   background: #ffffff;
