@@ -15,7 +15,6 @@ import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
 import { updateSnippetByIdAPI } from "helpers/api/snippets/updateSnippet";
 import { Button } from "components/Button";
-import deepEqual from "deep-equal";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
@@ -48,8 +47,14 @@ export default function EditSnippet() {
   const disableButton = useMemo(() => {
     return initialState.current === null
       ? true
-      : deepEqual(initialState.current, snippet);
+      : initialState.current.title === snippet.title &&
+          initialState.current.description === snippet.description &&
+          initialState.current.snippetContentMD[0] ===
+            snippet.snippetContentMD[0] &&
+          initialState.current.tags.join(", ") === snippet.tags;
   }, [snippet, initialState.current]);
+
+  console.log("disableButton", disableButton);
 
   const updateSnippet = useCallback(async () => {
     const { snippetContentMD, tags } = snippet;
@@ -126,13 +131,26 @@ export default function EditSnippet() {
 
   useEffect(() => {
     if (snippetApi.status === "succeeded") {
-      initialState.current = snippetApi.response;
+      const {
+        title,
+        description,
+        snippetContentMD,
+        tags,
+      } = snippetApi.response;
+      const currentSnippet = {
+        title,
+        description,
+        snippetContentMD,
+        tags,
+      };
+      initialState.current = currentSnippet;
+
       setSnippet((snippet) => {
         return {
           ...snippet,
           ...{
-            ...initialState.current,
-            tags: initialState.current.tags.join(", "),
+            ...currentSnippet,
+            tags: currentSnippet.tags.join(", "),
           },
         };
       });
