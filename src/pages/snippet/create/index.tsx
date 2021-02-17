@@ -143,6 +143,7 @@ export default function CreateSnippet() {
               onChange={onInputChange}
               keyHandler={handleTagsKeyInput}
               value={snippet.tags}
+              setSnippet={setSnippet}
             />
             <label>
               <span>Add Description:</span>

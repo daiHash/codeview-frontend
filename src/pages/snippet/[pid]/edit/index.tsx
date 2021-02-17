@@ -197,6 +197,7 @@ export default function EditSnippet() {
                   />
                 </label>
                 <TagsInput
+                  setSnippet={setSnippet}
                   onChange={onInputChange}
                   keyHandler={handleTagsKeyInput}
                   value={snippet.tags}

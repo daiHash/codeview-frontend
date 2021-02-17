@@ -46,7 +46,8 @@ const Card = styled.div`
   min-height: 200px;
   background: #fff;
   border-radius: 4px;
-  box-shadow: 2px 2px 4px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 0 0.5em 1em -0.125em rgb(10, 10, 10, 0.1),
+    0 0 0 1px rgb(10, 10, 10, 0.2);
 
   p {
     word-wrap: break-word;
