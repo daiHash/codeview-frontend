@@ -3,15 +3,16 @@ import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
 import React, { useMemo } from "react";
 import { formatDatetime } from "utils/formatDatetime";
-import Image from "next/image";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
 import { updateSnippetFavoriteAPI } from "helpers/api/snippets/updateSnippetfavorite";
 import { useApi } from "utils/api/useApi";
+import { useAppContext } from "context";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
   snippet: { id, title, description, createdAt, updatedAt, tags, isFavorite },
 }) => {
+  const { isCurrentUser } = useAppContext();
   const [_isFavorite, toggle] = useToggle(isFavorite);
   const [, updateSnippetFavorite] = useApi(updateSnippetFavoriteAPI);
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
@@ -29,17 +30,19 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
     <Card>
       <h3>{title}</h3>
       <p>{description}</p>
-      <HeartIcon
-        onClick={toggleFavorite}
-        isFavorite={_isFavorite}
-        title={
-          _isFavorite
-            ? "Remove snippet from favorites"
-            : "Add snippet to favorites"
-        }
-      >
-        <Heart />
-      </HeartIcon>
+      {isCurrentUser && (
+        <HeartIcon
+          onClick={toggleFavorite}
+          isFavorite={_isFavorite}
+          title={
+            _isFavorite
+              ? "Remove snippet from favorites"
+              : "Add snippet to favorites"
+          }
+        >
+          <Heart />
+        </HeartIcon>
+      )}
 
       <Tags>
         {sortTags(tags).map((tag, i) => (
