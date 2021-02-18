@@ -17,7 +17,7 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
     updatedAt,
   ]);
 
-  const toggleFavorite = (e: React.MouseEvent<HTMLDivElement>) => {
+  const toggleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     toggle();
   };
@@ -26,7 +26,15 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
     <Card>
       <h3>{title}</h3>
       <p>{description}</p>
-      <HeartIcon onClick={toggleFavorite} isFavorite={_isFavorite}>
+      <HeartIcon
+        onClick={toggleFavorite}
+        isFavorite={_isFavorite}
+        title={
+          _isFavorite
+            ? "Remove snippet from favorites"
+            : "Add snippet to favorites"
+        }
+      >
         <Heart />
       </HeartIcon>
 
@@ -86,11 +94,16 @@ const Datetime = styled.div`
   color: #626262;
 `;
 
-const HeartIcon = styled.div<{ isFavorite: boolean }>`
+const HeartIcon = styled.button<{ isFavorite: boolean }>`
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
   z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 
   > svg {
     > path {
