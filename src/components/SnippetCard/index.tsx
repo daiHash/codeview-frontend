@@ -102,7 +102,7 @@ const Datetime = styled.div`
 
 const HeartIcon = styled.button<{ isFavorite: boolean }>`
   position: absolute;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
   z-index: 10;
   width: 40px;
