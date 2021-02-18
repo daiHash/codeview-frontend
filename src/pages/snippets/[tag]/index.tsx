@@ -25,6 +25,12 @@ export default function SnippetsByTag() {
       : tags;
   }, [tags, currentTag]);
 
+  const tagTitle = useMemo(() => {
+    if (currentTag && typeof currentTag === "string") {
+      return currentTag.toUpperCase();
+    }
+  }, [currentTag]);
+
   useEffect(() => {
     if (currentTag && typeof currentTag === "string") {
       getSnippet({ search: `tags=${currentTag}` });
@@ -40,9 +46,9 @@ export default function SnippetsByTag() {
 
       <Layout>
         <Title>
-          Tag: <span>{currentTag}</span>
+          Tag: <span>{tagTitle}</span>
         </Title>
-        <h4>Other tags:</h4>
+        <h4>Search with other tags:</h4>
         <OtherTags>
           {otherTags.map(({ id, tag }) => (
             <li key={`${tag}-${id}`}>
@@ -80,7 +86,7 @@ export default function SnippetsByTag() {
 const OtherTags = styled.ul`
   display: flex;
   flex-flow: row wrap;
-  margin-top: 8px;
+  margin-top: 0;
 
   > li {
     &:not(:last-of-type) {
