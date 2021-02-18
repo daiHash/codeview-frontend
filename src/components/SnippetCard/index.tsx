@@ -3,19 +3,32 @@ import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
 import React, { useMemo } from "react";
 import { formatDatetime } from "utils/formatDatetime";
+import Image from "next/image";
+import { useToggle } from "utils/hooks/useToggle";
+import Heart from "./assets/heart.svg";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
-  snippet: { title, description, createdAt, updatedAt, tags },
+  snippet: { title, description, createdAt, updatedAt, tags, isFavorite },
 }) => {
+  const [_isFavorite, toggle] = useToggle(isFavorite);
+
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
     createdAt,
     updatedAt,
   ]);
 
+  const toggleFavorite = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    toggle();
+  };
+
   return (
     <Card>
       <h3>{title}</h3>
       <p>{description}</p>
+      <HeartIcon onClick={toggleFavorite} isFavorite={_isFavorite}>
+        <Heart />
+      </HeartIcon>
 
       <Tags>
         {sortTags(tags).map((tag, i) => (
@@ -41,6 +54,7 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
 };
 
 const Card = styled.div`
+  position: relative;
   padding: 30px 25px;
   width: 100%;
   min-height: 200px;
@@ -70,4 +84,17 @@ const Datetime = styled.div`
   margin-top: 20px;
   font-size: var(--fontSize-14);
   color: #626262;
+`;
+
+const HeartIcon = styled.div<{ isFavorite: boolean }>`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 10;
+
+  > svg {
+    > path {
+      fill: ${({ isFavorite }) => (isFavorite ? "#E62255" : "#626262")};
+    }
+  }
 `;

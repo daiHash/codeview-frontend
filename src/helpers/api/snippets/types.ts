@@ -7,6 +7,7 @@ export type Snippet = {
   createdAt: string;
   updatedAt: string;
   userId: number;
+  isFavorite: boolean;
 };
 
 export type UserSnippet = Snippet & {
