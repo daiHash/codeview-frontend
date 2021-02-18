@@ -6,19 +6,22 @@ import { formatDatetime } from "utils/formatDatetime";
 import Image from "next/image";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
+import { updateSnippetFavoriteAPI } from "helpers/api/snippets/updateSnippetfavorite";
+import { useApi } from "utils/api/useApi";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
-  snippet: { title, description, createdAt, updatedAt, tags, isFavorite },
+  snippet: { id, title, description, createdAt, updatedAt, tags, isFavorite },
 }) => {
   const [_isFavorite, toggle] = useToggle(isFavorite);
-
+  const [, updateSnippetFavorite] = useApi(updateSnippetFavoriteAPI);
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
     createdAt,
     updatedAt,
   ]);
 
-  const toggleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    await updateSnippetFavorite(id, { isFavorite: !_isFavorite });
     toggle();
   };
 
@@ -108,6 +111,7 @@ const HeartIcon = styled.button<{ isFavorite: boolean }>`
   > svg {
     > path {
       fill: ${({ isFavorite }) => (isFavorite ? "#E62255" : "#626262")};
+      fill-opacity: ${({ isFavorite }) => (isFavorite ? 1 : 0.4)};
     }
   }
 `;
