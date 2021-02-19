@@ -167,7 +167,7 @@ export default function CreateSnippet() {
 const ButtonWrapper = styled.div`
   margin-left: 20px;
   @media screen and (max-width: 850px) {
-    margin: 0 0 20px 0;
+    margin: 15px 0 20px 0;
   }
 `;
 

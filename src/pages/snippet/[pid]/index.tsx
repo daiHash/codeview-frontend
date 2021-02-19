@@ -56,7 +56,7 @@ export default function SnippetDetail() {
           {snippetApi.status === "succeeded" && (
             <Fragment>
               <Heading2>{snippetApi.response.title}</Heading2>
-              <p>{snippetApi.response.description}</p>
+              <Description>{snippetApi.response.description}</Description>
               <Tags>
                 {sortTags(snippetApi.response.tags).map((tag, i) => (
                   <li key={`${tag}-${i}`}>
@@ -166,4 +166,8 @@ const ButtonsWrapper = styled.div`
       }
     }
   }
+`;
+
+const Description = styled.p`
+  margin-top: 10px;
 `;
