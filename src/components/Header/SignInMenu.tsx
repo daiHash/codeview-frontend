@@ -1,5 +1,4 @@
 import React, { Fragment, useMemo } from "react";
-import { ButtonLink } from "../Button/ButtonLink";
 import Image from "next/image";
 import GoogleSignInButtonAsset from "./assets/btn_google_signin.png";
 import styled from "@emotion/styled";

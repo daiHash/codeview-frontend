@@ -17,11 +17,8 @@ export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
     []
   );
 
-  const onToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget);
-    if (!e.currentTarget) {
-      console.log("wtf");
-    }
+  const onToggle = () => {
+    toggle();
   };
 
   return (
@@ -31,7 +28,7 @@ export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
         aria-haspopup="true"
         id="menu-button"
         // onClick={onToggle}
-        onClick={toggle}
+        onClick={onToggle}
         // onMouseEnter={() => toggle(true)}
         // onMouseLeave={() => toggle(false)}
       >
