@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
@@ -10,10 +10,11 @@ import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 
 export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
-  snippet: { id, title, description, createdAt, updatedAt, tags, isFavorite },
+  snippet: { id, title, description, createdAt, updatedAt, tags, favorites },
 }) => {
-  const { isCurrentUser } = useAppContext();
-  const [_isFavorite, toggle] = useToggle(isFavorite);
+  const { isCurrentUser, id: userId } = useAppContext();
+
+  const [_isFavorite, toggle] = useToggle(false);
   const [, updateSnippetFavorite] = useApi(updateSnippetFavoriteAPI);
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
     createdAt,
@@ -25,6 +26,11 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
     await updateSnippetFavorite(id, { isFavorite: !_isFavorite });
     toggle();
   };
+
+  useEffect(() => {
+    const favorite = favorites.some((f) => f.userId === userId);
+    toggle(favorite);
+  }, [userId]);
 
   return (
     <Card>
