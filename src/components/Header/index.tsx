@@ -6,15 +6,23 @@ import { LoggedInMenu } from "./LoggedInMenu";
 import { TextLink } from "../TextLink";
 import { SignInMenu } from "./SignInMenu";
 import { useCheckIsPCSize } from "utils/hooks/useCheckIsPCSize";
+import Image from "next/image";
 
 export const Header = () => {
   const { isCurrentUser, avatarUrl } = useAppContext();
-  const isPCSize = useCheckIsPCSize();
+  // const isPCSize = useCheckIsPCSize();
 
   return (
     <StyledHeader>
       <TextLink href="/" isRouterLink>
-        <h2>{isPCSize ? "Code Snippet Memo" : "CSM📝"}</h2>
+        {/* <h2>{isPCSize ? "Code Snippet Memo" : "CSM📝"}</h2> */}
+        <Image
+          src="/codeview-logo.svg"
+          alt=""
+          width={180}
+          height={80}
+          aria-hidden
+        />
       </TextLink>
 
       {/* TODO: Maybe handle with loader */}

@@ -41,14 +41,14 @@ const StyledButton = styled.button<{
 }>`
   display: inline-block;
   text-align: center;
-  background: ${({ invert }) => (invert ? "transparent" : "#4568fb")};
-  color: ${({ invert }) => (invert ? "#4568fb" : "#fff")};
+  background: ${({ invert }) => (invert ? "transparent" : "#3E60F9")};
+  color: ${({ invert }) => (invert ? "#3E60F9" : "#fff")};
   border-radius: 4px;
   width: auto;
   min-width: ${({ width }) => width};
   padding: ${({ padding }) => padding};
   font-size: ${({ fontSize }) => fontSize};
-  border: ${({ invert }) => (invert ? "1px solid #4568fb" : "none")};
+  border: ${({ invert }) => (invert ? "1px solid #3E60F9" : "none")};
   cursor: pointer;
   transition: background 0.2s color 0.2s;
   &[disabled] {
@@ -58,7 +58,7 @@ const StyledButton = styled.button<{
 
   &:hover {
     background: ${({ invert }) =>
-      invert ? "#4568fb" : "rgba(69, 105, 251, 0.9)"};
+      invert ? "#3E60F9" : "rgba(69, 105, 251, 0.9)"};
     color: #fff;
   }
 `;

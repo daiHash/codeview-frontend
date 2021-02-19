@@ -142,6 +142,6 @@ const TagSuggestions = styled.ul`
     width: 100%;
     height: 45px;
     line-height: 45px;
-    color: #4568fb;
+    color: #3e60f9;
   }
 `;

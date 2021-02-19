@@ -33,7 +33,7 @@ export const Tag: React.FC<Props> = (props) => {
       {props.isRouterLink !== undefined ? (
         <TextLink href={props.href} isRouterLink={props.isRouterLink}>
           <StyledTag
-            color={styles?.color ?? "#4568fb"}
+            color={styles?.color ?? "#3E60F9"}
             fontSize={styles?.fontSize ?? "14px"}
             padding={styles?.padding ?? "2px 10px"}
             borderRadius={styles?.borderRadius ?? "4px"}
@@ -43,7 +43,7 @@ export const Tag: React.FC<Props> = (props) => {
         </TextLink>
       ) : (
         <StyledTag
-          color={styles?.color ?? "#4568fb"}
+          color={styles?.color ?? "#3E60F9"}
           fontSize={styles?.fontSize ?? "14px"}
           padding={styles?.padding ?? "2px 10px"}
           borderRadius={styles?.borderRadius ?? "4px"}

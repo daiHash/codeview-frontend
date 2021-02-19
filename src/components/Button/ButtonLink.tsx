@@ -48,14 +48,14 @@ export const ButtonLink: React.FC<Props> = ({
 const A = styled.a<{ invert?: boolean; disabled?: boolean }>`
   display: inline-block;
   text-align: center;
-  background: ${({ invert }) => (invert ? "transparent" : "#4568fb")};
-  color: ${({ invert }) => (invert ? "#4568fb" : "#fff")};
+  background: ${({ invert }) => (invert ? "transparent" : "#3E60F9")};
+  color: ${({ invert }) => (invert ? "#3E60F9" : "#fff")};
   border-radius: 4px;
   width: auto;
   min-width: 120px;
   padding: 10px 15px;
   font-size: 1rem;
-  border: ${({ invert }) => (invert ? "1px solid #4568fb" : "none")};
+  border: ${({ invert }) => (invert ? "1px solid #3E60F9" : "none")};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   transition: background 0.2s color 0.2s;
   pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
@@ -63,7 +63,7 @@ const A = styled.a<{ invert?: boolean; disabled?: boolean }>`
 
   &:hover {
     background: ${({ invert }) =>
-      invert ? "#4568fb" : "rgba(69, 105, 251, 0.9)"};
+      invert ? "#3E60F9" : "rgba(69, 105, 251, 0.9)"};
     color: #fff;
   }
 
