@@ -12,7 +12,7 @@ export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
   const LOGOUT_URL = useMemo(
     () =>
       process.env.NODE_ENV !== "development"
-        ? "https://code-snippet-memo.herokuapp.com/api/auth/logout"
+        ? "https://codeview.herokuapp.com/api/auth/logout"
         : "http://localhost:3000/api/auth/logout",
     []
   );

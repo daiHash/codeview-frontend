@@ -13,7 +13,7 @@ export const SignInMenu = () => {
   const GOOGLE_SIGIN_URL = useMemo(
     () =>
       process.env.NODE_ENV !== "development"
-        ? "https://code-snippet-memo.herokuapp.com/api/auth/google"
+        ? "https://codeview.herokuapp.com/api/auth/google"
         : "http://localhost:3000/api/auth/google",
     []
   );
