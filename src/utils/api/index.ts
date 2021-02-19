@@ -3,12 +3,12 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 export const baseURL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3000/api"
-    : "https://code-snippet-memo.herokuapp.com/api";
+    : "https://codeview.herokuapp.com/api";
 
 export const clientBaseURL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:8080"
-    : "https://codesnippetmemo.vercel.app/";
+    : "https://codeviewmemo.vercel.app/";
 
 export type ApiResponse<T> =
   | {
