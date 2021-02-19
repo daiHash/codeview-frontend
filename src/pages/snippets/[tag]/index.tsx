@@ -99,7 +99,7 @@ const OtherTags = styled.ul`
 `;
 
 const Title = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   span {
     color: #3e60f9;
   }

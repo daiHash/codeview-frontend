@@ -169,5 +169,5 @@ const ButtonsWrapper = styled.div`
 `;
 
 const Description = styled.p`
-  margin-top: 10px;
+  margin-top: 20px;
 `;
