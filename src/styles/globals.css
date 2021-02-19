@@ -50,7 +50,7 @@ ol {
 
 input:focus,
 textarea:focus {
-  border-color: #4568fb;
+  border-color: #3e60f9;
 }
 
 input::placeholder,

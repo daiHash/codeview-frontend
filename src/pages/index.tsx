@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { EmptyContent } from "components/EmptyContent";
+import { Heading2 } from "components/Text/Heading2";
 
 export default function Home() {
   const [snippetsApi] = useApi(getLatestSnippetsAPI, {
@@ -22,7 +23,7 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <Title>Latest Code Snippets:</Title>
+        <Heading2>Latest Code Snippets:</Heading2>
         <LatestSnippets>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (
@@ -46,8 +47,6 @@ export default function Home() {
     </Fragment>
   );
 }
-
-const Title = styled.h2``;
 
 const LatestSnippets = styled.ul`
   width: 100%;

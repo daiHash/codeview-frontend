@@ -10,6 +10,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { formatDatetime } from "utils/formatDatetime";
 import { sortTags, Tag } from "components/Tag";
+import { Heading2 } from "components/Text/Heading2";
 
 export default function SnippetDetail() {
   const router = useRouter();
@@ -54,7 +55,7 @@ export default function SnippetDetail() {
         >
           {snippetApi.status === "succeeded" && (
             <Fragment>
-              <h2>{snippetApi.response.title}</h2>
+              <Heading2>{snippetApi.response.title}</Heading2>
               <p>{snippetApi.response.description}</p>
               <Tags>
                 {sortTags(snippetApi.response.tags).map((tag, i) => (

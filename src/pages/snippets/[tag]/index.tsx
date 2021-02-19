@@ -11,6 +11,7 @@ import { useApi } from "utils/api/useApi";
 import Link from "next/link";
 import { useAppContext } from "context";
 import { sortTagsWithId, Tag } from "components/Tag";
+import { Heading2 } from "components/Text/Heading2";
 
 export default function SnippetsByTag() {
   const { tags } = useAppContext();
@@ -46,7 +47,9 @@ export default function SnippetsByTag() {
 
       <Layout>
         <Title>
-          Tag: <span>{tagTitle}</span>
+          <Heading2>
+            Tag: <span>{tagTitle}</span>
+          </Heading2>
         </Title>
         <h4>Search with other tags:</h4>
         <OtherTags>
@@ -95,10 +98,10 @@ const OtherTags = styled.ul`
   }
 `;
 
-const Title = styled.h2`
+const Title = styled.div`
   margin-bottom: 10px;
   span {
-    color: #4568fb;
+    color: #3e60f9;
   }
 `;
 

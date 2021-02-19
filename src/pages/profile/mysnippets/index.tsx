@@ -9,6 +9,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useAppContext } from "context";
 import { EmptyContent } from "components/EmptyContent";
+import { Heading2 } from "components/Text/Heading2";
 
 export default function MySnippets() {
   const { isCurrentUser } = useAppContext();
@@ -23,7 +24,7 @@ export default function MySnippets() {
       </Head> */}
 
       <Layout isAllowed={!!isCurrentUser}>
-        <Title>My Code Snippets 📝:</Title>
+        <Heading2>My Code Snippets 📝:</Heading2>
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (
@@ -47,8 +48,6 @@ export default function MySnippets() {
     </Fragment>
   );
 }
-
-const Title = styled.h2``;
 
 const MySnippetsList = styled.ul`
   width: 100%;

@@ -16,6 +16,7 @@ import { Button } from "components/Button";
 import { Snippet } from "helpers/api/snippets/types";
 import { useAppContext } from "context";
 import { TagsInput } from "components/Input/TagsInput";
+import { Heading2 } from "components/Text/Heading2";
 
 export default function CreateSnippet() {
   const { isCurrentUser } = useAppContext();
@@ -118,7 +119,7 @@ export default function CreateSnippet() {
       <Layout isAllowed={!!isCurrentUser}>
         <main>
           <Heading>
-            <h2>Add your Code Snippet</h2>
+            <Heading2>Add your Code Snippet</Heading2>
             <ButtonWrapper>
               <Button onClick={createSnippet} disabled={disableButton}>
                 Add New Snippet
