@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
@@ -14,6 +14,7 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
 }) => {
   const { isCurrentUser, id: userId } = useAppContext();
 
+  const [_favorites, setFavorites] = useState(favorites.length);
   const [_isFavorite, toggle] = useToggle(false);
   const [, updateSnippetFavorite] = useApi(updateSnippetFavoriteAPI);
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
@@ -24,6 +25,7 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
   const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await updateSnippetFavorite(id, { isFavorite: !_isFavorite });
+    _isFavorite ? setFavorites((f) => f - 1) : setFavorites((f) => f + 1);
     toggle();
   };
 
@@ -46,6 +48,7 @@ export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
               : "Add snippet to favorites"
           }
         >
+          <span>{_favorites}</span>
           <Heart />
         </HeartIcon>
       )}
@@ -111,11 +114,17 @@ const HeartIcon = styled.button<{ isFavorite: boolean }>`
   bottom: 20px;
   right: 20px;
   z-index: 10;
-  width: 40px;
+  width: auto;
   height: 40px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   cursor: pointer;
+
+  > span {
+    margin: 0 2px 2px 0;
+  }
 
   > svg {
     > path {
