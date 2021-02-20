@@ -30,7 +30,7 @@ export const Header = () => {
         isCurrentUser ? (
           <Fragment>
             <ButtonLink href="/snippet/create" isRouterLink>
-              Create Snippet
+              Create <span>Snippet</span>
             </ButtonLink>
 
             <LoggedInMenu avatarUrl={avatarUrl} />
@@ -65,5 +65,22 @@ const StyledHeader = styled.header`
 
   @media screen and (max-width: 600px) {
     padding: 0 10px;
+
+    > a {
+      &:first-of-type + a {
+        min-width: 100px;
+      }
+
+      span {
+        display: none;
+      }
+
+      > div {
+        img {
+          min-width: 80% !important;
+          margin: 0 !important;
+        }
+      }
+    }
   }
 `;

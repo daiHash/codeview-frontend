@@ -94,7 +94,7 @@ const MenuButton = styled.button`
   }
 
   @media screen and (max-width: 600px) {
-    margin-left: 15px;
+    margin-left: 5px;
   }
 `;
 
