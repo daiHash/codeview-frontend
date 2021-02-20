@@ -14,71 +14,79 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <TextLink href="/" isRouterLink>
-        {/* <h2>{isPCSize ? "Code Snippet Memo" : "CSM📝"}</h2> */}
-        <Image
-          src="/codeview-logo.svg"
-          alt=""
-          width={180}
-          height={80}
-          aria-hidden
-        />
-      </TextLink>
+      <div>
+        <TextLink href="/" isRouterLink>
+          {/* <h2>{isPCSize ? "Code Snippet Memo" : "CSM📝"}</h2> */}
+          <Image
+            src="/codeview-logo.svg"
+            alt=""
+            width={130}
+            height={80}
+            aria-hidden
+          />
+        </TextLink>
 
-      {/* TODO: Maybe handle with loader */}
-      {isCurrentUser !== undefined ? (
-        isCurrentUser ? (
-          <Fragment>
-            <ButtonLink href="/snippet/create" isRouterLink>
-              Create <span>Snippet</span>
-            </ButtonLink>
+        {/* TODO: Maybe handle with loader */}
+        {isCurrentUser !== undefined ? (
+          isCurrentUser ? (
+            <Fragment>
+              <ButtonLink href="/snippet/create" isRouterLink>
+                Create <span>Snippet</span>
+              </ButtonLink>
 
-            <LoggedInMenu avatarUrl={avatarUrl} />
-          </Fragment>
-        ) : (
-          <SignInMenu />
-        )
-      ) : null}
+              <LoggedInMenu avatarUrl={avatarUrl} />
+            </Fragment>
+          ) : (
+            <SignInMenu />
+          )
+        ) : null}
+      </div>
     </StyledHeader>
   );
 };
 
 const StyledHeader = styled.header`
   position: relative;
-  display: flex;
-  align-items: center;
   width: 100%;
   min-width: 320px;
   height: 80px;
-  padding: 0 20px;
   background: #ffffff;
   box-shadow: 0px 3px 3px rgba(48, 48, 48, 0.25);
 
-  > a {
-    &:first-of-type {
-      display: inline-flex;
-      align-items: center;
-      height: 100%;
-      margin-right: auto;
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    padding: 0 10px;
+  div {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
 
     > a {
-      &:first-of-type + a {
-        min-width: 100px;
+      &:first-of-type {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        margin-right: auto;
       }
+    }
 
-      span {
-        display: none;
-      }
+    @media screen and (max-width: 600px) {
+      padding: 0 10px;
 
-      > div {
-        img {
-          min-width: 80% !important;
-          margin: 0 !important;
+      > a {
+        &:first-of-type + a {
+          min-width: 100px;
+        }
+
+        span {
+          display: none;
+        }
+
+        > div {
+          img {
+            min-width: 80% !important;
+            margin: 0 !important;
+          }
         }
       }
     }
