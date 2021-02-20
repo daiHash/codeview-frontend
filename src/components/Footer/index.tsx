@@ -11,8 +11,8 @@ export const Footer = () => {
   return (
     <StyledFooter>
       <p>
-        All rights reserved. Code Snippet Memo &copy; {startYear}
-        {currentYear}
+        &copy; {startYear}
+        {currentYear} CodeView
       </p>
     </StyledFooter>
   );
