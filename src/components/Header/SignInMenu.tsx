@@ -48,6 +48,8 @@ const MenuContent = styled.nav`
   background: #fff;
   border-radius: 2px;
   border: 1px solid rgba(48, 48, 48, 0.2);
+  background: #fff;
+  z-index: 10;
 
   ul {
     padding: 0 20px;
