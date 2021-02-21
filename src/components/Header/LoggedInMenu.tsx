@@ -49,7 +49,7 @@ export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
               </TextLink>
             </li>
             <li>
-              <TextLink href="/snippet/favorites" isRouterLink>
+              <TextLink href="/profile/favorites" isRouterLink>
                 Favorite Snippets
               </TextLink>
             </li>

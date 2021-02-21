@@ -29,8 +29,8 @@ export const SignInMenu = () => {
                 <Image
                   src={GoogleSignInButtonAsset}
                   alt="Google Sign In Button"
-                  width={191}
-                  height={46}
+                  width={180}
+                  height={50}
                 />
               </TextLink>
             </li>
