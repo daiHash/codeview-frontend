@@ -19,7 +19,7 @@ const initialStatus: AppState = {
 
 const AppContext = createContext<AppState>(initialStatus);
 
-export const AppWrapper = ({ children }) => {
+export const AppWrapper: React.FC = ({ children }) => {
   const [appState, setAppState] = useState<AppState>(initialStatus);
   const [userStatusApi] = useApi(getUserStatusAPI, {
     autoCall: true,

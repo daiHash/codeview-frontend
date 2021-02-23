@@ -3,7 +3,7 @@ import React, { Fragment, useMemo } from "react";
 import { TextLink } from "../TextLink";
 import { useToggle } from "utils/hooks/useToggle";
 
-export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
+export const LoggedInMenu: React.VFC<{ avatarUrl: string }> = ({
   avatarUrl,
 }) => {
   const [isOpen, toggle] = useToggle(false);

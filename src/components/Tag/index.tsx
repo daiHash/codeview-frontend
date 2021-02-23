@@ -26,7 +26,7 @@ export const sortTags = (tags: string[]) => {
   return tags.sort((a, b) => a.localeCompare(b));
 };
 
-export const Tag: React.FC<Props> = (props) => {
+export const Tag: React.VFC<Props> = (props) => {
   const { text, styles } = props;
   return (
     <Fragment>
