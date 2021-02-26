@@ -37,36 +37,49 @@ export const LoggedInMenu: React.VFC<{ avatarUrl: string }> = ({
       </MenuButton>
 
       {isOpen && (
-        <MenuContent
-          id="global-nav"
-          aria-label="Main navigation"
-          // onMouseEnter={() => toggle(true)}
-        >
-          <ul>
-            <li>
-              <TextLink href="/profile" isRouterLink>
-                Profile
-              </TextLink>
-            </li>
-            <li>
-              <TextLink href="/profile/favorites" isRouterLink>
-                Favorite Snippets
-              </TextLink>
-            </li>
-            <li>
-              <TextLink href="/profile/mysnippets" isRouterLink>
-                My Snippets
-              </TextLink>
-            </li>
-            <li>
-              <TextLink href={LOGOUT_URL}>Log out</TextLink>
-            </li>
-          </ul>
-        </MenuContent>
+        <Fragment>
+          <MenuBGLayer onClick={onToggle} />
+          <MenuContent
+            id="global-nav"
+            aria-label="Main navigation"
+            // onMouseEnter={() => toggle(true)}
+          >
+            <ul>
+              <li>
+                <TextLink href="/profile" isRouterLink>
+                  Profile
+                </TextLink>
+              </li>
+              <li>
+                <TextLink href="/profile/favorites" isRouterLink>
+                  Favorite Snippets
+                </TextLink>
+              </li>
+              <li>
+                <TextLink href="/profile/mysnippets" isRouterLink>
+                  My Snippets
+                </TextLink>
+              </li>
+              <li>
+                <TextLink href={LOGOUT_URL}>Log out</TextLink>
+              </li>
+            </ul>
+          </MenuContent>
+        </Fragment>
       )}
     </Fragment>
   );
 };
+
+const MenuBGLayer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 5;
+`;
 
 const MenuButton = styled.button`
   display: flex;

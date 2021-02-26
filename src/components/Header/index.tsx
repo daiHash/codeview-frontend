@@ -10,17 +10,15 @@ import Image from "next/image";
 
 export const Header = () => {
   const { isCurrentUser, avatarUrl } = useAppContext();
-  // const isPCSize = useCheckIsPCSize();
 
   return (
     <StyledHeader>
       <div>
         <TextLink href="/" isRouterLink>
-          {/* <h2>{isPCSize ? "Code Snippet Memo" : "CSM📝"}</h2> */}
           <Image
             src="/codeview-logo.svg"
             alt=""
-            width={130}
+            width={150}
             height={80}
             aria-hidden
           />
@@ -52,7 +50,7 @@ const StyledHeader = styled.header`
   background: #ffffff;
   box-shadow: 0px 3px 3px rgba(48, 48, 48, 0.25);
 
-  div {
+  > div {
     position: relative;
     display: flex;
     align-items: center;
