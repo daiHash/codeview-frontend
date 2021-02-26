@@ -17,9 +17,13 @@ export const SignInMenu = () => {
     []
   );
 
+  const onToggle = () => {
+    toggle();
+  };
+
   return (
     <Fragment>
-      <Button onClick={toggle}>Sign In</Button>
+      <Button onClick={onToggle}>Sign In</Button>
 
       {isOpen && (
         <MenuContent>
