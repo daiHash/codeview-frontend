@@ -46,7 +46,6 @@ export const Header = () => {
 };
 
 const StyledHeader = styled.header`
-  position: relative;
   width: 100%;
   min-width: 320px;
   height: 80px;
@@ -54,6 +53,7 @@ const StyledHeader = styled.header`
   box-shadow: 0px 3px 3px rgba(48, 48, 48, 0.25);
 
   div {
+    position: relative;
     display: flex;
     align-items: center;
     max-width: 1200px;
