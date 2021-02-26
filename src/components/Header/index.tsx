@@ -18,7 +18,7 @@ export const Header = () => {
           <Image
             src="/codeview-logo.svg"
             alt=""
-            width={150}
+            width={200}
             height={80}
             aria-hidden
           />
