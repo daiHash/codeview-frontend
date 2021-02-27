@@ -5,10 +5,11 @@ import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
+// Fix case
 import {
   updateSnippetFavoriteAPI,
   clearSnippetFavoriteAPI,
-} from "helpers/api/snippets/updateSnippetFavorite";
+} from "helpers/api/snippets/updateSnippetfavorite";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 
