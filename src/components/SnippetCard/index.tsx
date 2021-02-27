@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
 import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
-import { updateSnippetFavoriteAPI } from "helpers/api/snippets/updateSnippetfavorite";
+import {
+  updateSnippetFavoriteAPI,
+  clearSnippetFavoriteAPI,
+} from "helpers/api/snippets/updateSnippetFavorite";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 
@@ -14,9 +17,14 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
 }) => {
   const { isCurrentUser, id: userId } = useAppContext();
 
+  const isProcessing = useRef(false);
   const [_favorites, setFavorites] = useState(favorites.length);
   const [_isFavorite, toggle] = useToggle(false);
-  const [, updateSnippetFavorite] = useApi(updateSnippetFavoriteAPI);
+  const [snippetFavoriteApi, updateSnippetFavorite] = useApi(
+    updateSnippetFavoriteAPI
+  );
+
+  const [, clearSnippetFavorite] = useApi(clearSnippetFavoriteAPI);
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
     createdAt,
     updatedAt,
@@ -24,10 +32,24 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
 
   const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (isProcessing.current) return;
+    isProcessing.current = true;
     await updateSnippetFavorite(id, { isFavorite: !_isFavorite });
-    _isFavorite ? setFavorites((f) => f - 1) : setFavorites((f) => f + 1);
-    toggle();
   };
+
+  useEffect(() => {
+    if (snippetFavoriteApi.status === "failed") {
+      isProcessing.current = false;
+      return;
+    }
+
+    if (snippetFavoriteApi.status === "succeeded") {
+      _isFavorite ? setFavorites((f) => f - 1) : setFavorites((f) => f + 1);
+      toggle();
+
+      isProcessing.current = false;
+    }
+  }, [snippetFavoriteApi.status]);
 
   useEffect(() => {
     const favorite = favorites.some((f) => f.userId === userId);
@@ -39,18 +61,31 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
       <h3>{title}</h3>
       <p>{description}</p>
       {isCurrentUser && (
-        <HeartIcon
-          onClick={toggleFavorite}
-          isFavorite={_isFavorite}
-          title={
-            _isFavorite
-              ? "Remove snippet from favorites"
-              : "Add snippet to favorites"
-          }
-        >
-          <span>{_favorites}</span>
-          <Heart />
-        </HeartIcon>
+        <Fragment>
+          <HeartIcon
+            onClick={toggleFavorite}
+            isFavorite={_isFavorite}
+            title={
+              _isFavorite
+                ? "Remove snippet from favorites"
+                : "Add snippet to favorites"
+            }
+          >
+            <span>{_favorites}</span>
+            <Heart />
+          </HeartIcon>
+          {/* Remove after clearing */}
+          {userId === 1 && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                clearSnippetFavorite(id);
+              }}
+            >
+              Clear {userId}
+            </button>
+          )}
+        </Fragment>
       )}
 
       <Tags>

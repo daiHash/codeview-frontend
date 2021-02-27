@@ -7,3 +7,8 @@ export const updateSnippetFavoriteAPI = (
 ) => {
   return api.put<Snippet>(`/snippets/${id}/favorite`, data);
 };
+
+// remove after clearing just for debug
+export const clearSnippetFavoriteAPI = (id: number) => {
+  return api.put<Snippet>(`/snippets/${id}/clear/favorite`);
+};

@@ -30,6 +30,7 @@ export default function EditSnippet() {
   const { isCurrentUser } = useAppContext();
   const router = useRouter();
   const { pid } = router.query;
+  const isProcessing = useRef(false);
   const initialState = useRef<EditSnippet>(null);
 
   const [snippetApi, getSnippet] = useApi(getSnippetByIdAPI);
@@ -56,6 +57,8 @@ export default function EditSnippet() {
   }, [snippet, initialState.current]);
 
   const updateSnippet = useCallback(async () => {
+    if (isProcessing.current) return;
+    isProcessing.current = true;
     const { snippetContentMD, tags } = snippet;
     if (pid && typeof pid === "string") {
       updateSnippetById(pid, {
@@ -117,7 +120,13 @@ export default function EditSnippet() {
   }, []);
 
   useEffect(() => {
+    if (updateSnippetApi.status === "failed") {
+      isProcessing.current = false;
+      return;
+    }
+
     if (updateSnippetApi.status === "succeeded") {
+      isProcessing.current = false;
       router.push("/");
     }
   }, [updateSnippetApi.status]);
@@ -180,7 +189,10 @@ export default function EditSnippet() {
               <Heading>
                 <Heading2>Edit your Code Snippet</Heading2>
                 <ButtonWrapper>
-                  <Button onClick={updateSnippet} disabled={disableButton}>
+                  <Button
+                    onClick={updateSnippet}
+                    disabled={disableButton || isProcessing.current}
+                  >
                     Update Code Snippet
                   </Button>
                 </ButtonWrapper>

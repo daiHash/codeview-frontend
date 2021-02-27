@@ -17,10 +17,13 @@ import { Snippet } from "helpers/api/snippets/types";
 import { useAppContext } from "context";
 import { TagsInput } from "components/Input/TagsInput";
 import { Heading2 } from "components/Text/Heading2";
+import { createSnippetAPI } from "helpers/api/snippets/createSnippet";
+import { useApi } from "utils/api/useApi";
 
 export default function CreateSnippet() {
   const { isCurrentUser } = useAppContext();
   const router = useRouter();
+  const isProcessing = useRef(false);
   const initialState = useRef<
     Pick<Snippet, "title" | "description" | "snippetContentMD" | "tags">
   >({
@@ -29,6 +32,8 @@ export default function CreateSnippet() {
     snippetContentMD: [""],
     tags: [""],
   });
+
+  const [createSnippetApi, createNewSnippet] = useApi(createSnippetAPI);
   const { renderEditor, md } = useMDEditor();
 
   const [snippet, setSnippet] = useState({
@@ -47,18 +52,17 @@ export default function CreateSnippet() {
   }, [snippet, initialState.current, md]);
 
   const createSnippet = useCallback(async () => {
+    if (isProcessing.current) return;
+    isProcessing.current = true;
+
     const { title, description, tags } = snippet;
 
-    const res = await api.post("/snippets", {
+    await createNewSnippet({
       title,
       description,
       snippetContentMD: [md],
       tags: [...new Set(tags.split(", "))],
     });
-
-    if (res) {
-      router.push("/");
-    }
   }, [snippet, md]);
 
   const onInputChange = (
@@ -100,6 +104,18 @@ export default function CreateSnippet() {
   };
 
   useEffect(() => {
+    if (createSnippetApi.status === "failed") {
+      isProcessing.current = false;
+      return;
+    }
+
+    if (createSnippetApi.status === "succeeded") {
+      isProcessing.current = false;
+      router.push("/");
+    }
+  }, [createSnippetApi.status]);
+
+  useEffect(() => {
     const currentSnippet = JSON.parse(sessionStorage.getItem("currentSnippet"));
     if (currentSnippet) {
       setSnippet((v) => {
@@ -121,7 +137,10 @@ export default function CreateSnippet() {
           <Heading>
             <Heading2>Add your Code Snippet</Heading2>
             <ButtonWrapper>
-              <Button onClick={createSnippet} disabled={disableButton}>
+              <Button
+                onClick={createSnippet}
+                disabled={disableButton || isProcessing.current}
+              >
                 Add New Snippet
               </Button>
             </ButtonWrapper>
