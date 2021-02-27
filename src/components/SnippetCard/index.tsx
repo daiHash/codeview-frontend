@@ -8,7 +8,7 @@ import Heart from "./assets/heart.svg";
 // Fix case
 import {
   updateSnippetFavoriteAPI,
-  clearSnippetFavoriteAPI,
+  // clearSnippetFavoriteAPI,
 } from "helpers/api/snippets/updateSnippetfavorite";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
@@ -25,7 +25,8 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
     updateSnippetFavoriteAPI
   );
 
-  const [, clearSnippetFavorite] = useApi(clearSnippetFavoriteAPI);
+  // Just for debug
+  // const [, clearSnippetFavorite] = useApi(clearSnippetFavoriteAPI);
   const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
     createdAt,
     updatedAt,
@@ -75,8 +76,8 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
             <span>{_favorites}</span>
             <Heart />
           </HeartIcon>
-          {/* Remove after clearing */}
-          {userId === 1 && (
+          {/* Remove after clearing debug*/}
+          {/* {userId === 1 && (
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -85,7 +86,7 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
             >
               Clear {userId}
             </button>
-          )}
+          )} */}
         </Fragment>
       )}
 
