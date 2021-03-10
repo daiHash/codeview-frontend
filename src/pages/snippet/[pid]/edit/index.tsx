@@ -174,7 +174,7 @@ export default function EditSnippet() {
   return (
     <Fragment>
       <Head>
-        <title>Code Snippet Memo | Edit Snippet Memo</title>
+        <title>CodeView | Edit Code Snippet</title>
       </Head>
 
       <Layout isAllowed={!!isCurrentUser && snippetApi.response?.isUser}>

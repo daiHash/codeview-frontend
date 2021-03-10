@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from "react";
+import React, { Fragment, useEffect, useMemo, useRef } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
 import { Head } from "next/document";
@@ -16,6 +16,7 @@ export default function SnippetDetail() {
   const router = useRouter();
   const { pid } = router.query;
   const { renderFormatter } = useMDEditor();
+  const codeRef = useRef<HTMLDivElement>();
 
   const SnippetId = useMemo<string>(() => {
     if (pid && typeof pid === "string") {
@@ -41,6 +42,18 @@ export default function SnippetDetail() {
       getSnippet();
     }
   }, [pid]);
+
+  useEffect(() => {
+    const codeWrapper = codeRef.current;
+    const codes = codeRef.current?.querySelectorAll("section > div");
+
+    console.log("Outside", codeWrapper, codes);
+
+    if (codeWrapper && snippetApi.status === "succeeded") {
+      const code = codeWrapper.querySelectorAll("section pre");
+      console.log("Page:", { code });
+    }
+  }, [snippetApi.status]);
 
   return (
     <Fragment>
@@ -102,7 +115,7 @@ export default function SnippetDetail() {
                   )}
               </SubContent>
 
-              <div>
+              <div ref={codeRef}>
                 {renderFormatter(snippetApi.response.snippetContentMD[0])}
               </div>
             </Fragment>

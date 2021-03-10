@@ -4,8 +4,8 @@ import { Layout } from "layout/Layout";
 import Image from "next/image";
 import { ButtonLink } from "components/Button/ButtonLink";
 import { generateRandomNumberInRange } from "utils/getRandomNumber";
+import Head from "next/head";
 
-// TODO: Fix styles
 export default function NotFound() {
   const NotFoundGIF = useMemo(() => {
     const gifs = ["/404-1.gif", "/404-2.gif", "/404-3.gif"];
@@ -14,9 +14,9 @@ export default function NotFound() {
 
   return (
     <Fragment>
-      {/* <Head>
-        <title>Code Snippet Memo | Snippet Memo</title>
-      </Head> */}
+      <Head>
+        <title>CodeView | Page Not Found 🙅‍♂️</title>
+      </Head>
 
       <Layout>
         <Title>

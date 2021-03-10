@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
-import { Head } from "next/document";
-import { getMyLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
+import Head from "next/head";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { useApi } from "utils/api/useApi";
@@ -20,9 +19,9 @@ export default function Favorites() {
 
   return (
     <Fragment>
-      {/* <Head>
-        <title>Code Snippet Memo | My Snippets</title>
-      </Head> */}
+      <Head>
+        <title>CodeView | My Favorite Snippets</title>
+      </Head>
 
       <Layout isAllowed={!!isCurrentUser}>
         <Heading2>My Favorite Snippets:</Heading2>

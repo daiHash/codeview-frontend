@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styled from "@emotion/styled";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Layout } from "layout/Layout";
 import { getLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <Fragment>
       <Head>
-        <title>Code Snippet Memo</title>
+        <title>CodeView</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

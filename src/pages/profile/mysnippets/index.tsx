@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
-import { Head } from "next/document";
+import Head from "next/head";
 import { getMyLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
@@ -19,9 +19,9 @@ export default function MySnippets() {
 
   return (
     <Fragment>
-      {/* <Head>
-        <title>Code Snippet Memo | My Snippets</title>
-      </Head> */}
+      <Head>
+        <title>CodeView | My Code Snippets 📝</title>
+      </Head>
 
       <Layout isAllowed={!!isCurrentUser}>
         <Heading2>My Code Snippets 📝:</Heading2>

@@ -1,5 +1,5 @@
 import { Layout } from "layout/Layout";
-import { Head } from "next/document";
+import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useMemo } from "react";
@@ -40,10 +40,9 @@ export default function SnippetsByTag() {
 
   return (
     <Fragment>
-      {/* <Head>
-        <title>Code Snippet Memo</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head> */}
+      <Head>
+        <title>CodeView | Tag: {tagTitle}</title>
+      </Head>
 
       <Layout>
         <Title>

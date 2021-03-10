@@ -129,7 +129,7 @@ export default function CreateSnippet() {
   return (
     <Fragment>
       <Head>
-        <title>Code Snippet Memo | Create New Snippet Memo</title>
+        <title>CodeView | Create New Code Snippet</title>
       </Head>
 
       <Layout isAllowed={!!isCurrentUser}>
