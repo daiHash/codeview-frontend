@@ -1,10 +1,13 @@
+import { Favicon } from "components/Favicon";
 import NextDocument, { Html, Head, Main, NextScript } from "next/document";
 
 class Document extends NextDocument {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <Favicon />
+        </Head>
         <body>
           <Main />
           <NextScript />

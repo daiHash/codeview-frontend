@@ -19,7 +19,6 @@ export default function Home() {
     <Fragment>
       <Head>
         <title>CodeView</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Layout>
