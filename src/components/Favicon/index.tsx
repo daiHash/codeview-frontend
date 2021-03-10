@@ -7,7 +7,7 @@ export const Favicon = () => (
       sizes="180x180"
       href="/favicon/apple-touch-icon.png"
     />
-    <link rel="icon" href="/favicon/logo-dark.svg" />
+    <link rel="icon" href="/favicon/favicon.svg" />
     <link
       rel="icon"
       type="image/png"
