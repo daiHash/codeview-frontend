@@ -1,11 +1,20 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useMemo } from "react";
 import HeroImage from "./assets/hero-image.svg";
 import { Heading2 } from "components/Text/Heading2";
 import { UnderlinedText } from "components/Text/UnderLinedText";
 import { Button } from "components/Button";
+import { ButtonLink } from "components/Button/ButtonLink";
 
 export const HeroContent = () => {
+  const GOOGLE_SIGIN_URL = useMemo(
+    () =>
+      process.env.NODE_ENV !== "development"
+        ? "https://codeview.herokuapp.com/api/auth/google"
+        : "http://localhost:3000/api/auth/google",
+    []
+  );
+
   return (
     <Wrapper>
       <HeroContentText>
@@ -20,12 +29,7 @@ export const HeroContent = () => {
         </div>
 
         <div>
-          <Button
-            onClick={() => console.log()}
-            styles={{ fontSize: "16px", padding: "10px 30px" }}
-          >
-            Let's Get Started!
-          </Button>
+          <ButtonLink href={GOOGLE_SIGIN_URL}>Sign In</ButtonLink>
         </div>
       </HeroContentText>
 
