@@ -8,12 +8,16 @@ import Link from "next/link";
 import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { EmptyContent } from "components/EmptyContent";
-import { Heading2 } from "components/Text/Heading2";
+import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { HeroContent } from "components/Home/HeroContent";
+import { useAppContext } from "context";
 
 export default function Home() {
   const [snippetsApi] = useApi(getLatestSnippetsAPI, {
     autoCall: true,
   });
+
+  const { isCurrentUser } = useAppContext();
 
   return (
     <Fragment>
@@ -22,7 +26,8 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <Heading2>Latest Code Snippets:</Heading2>
+        {isCurrentUser !== undefined ? !isCurrentUser && <HeroContent /> : null}
+        <UnderlinedHeading2 skew>Latest Code Snippets:</UnderlinedHeading2>
         <LatestSnippets>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (
