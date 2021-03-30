@@ -3,7 +3,6 @@ import React, { useMemo } from "react";
 import HeroImage from "./assets/hero-image.svg";
 import { Heading2 } from "components/Text/Heading2";
 import { UnderlinedText } from "components/Text/UnderLinedText";
-import { Button } from "components/Button";
 import { ButtonLink } from "components/Button/ButtonLink";
 
 export const HeroContent = () => {
