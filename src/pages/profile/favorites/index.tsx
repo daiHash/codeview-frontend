@@ -8,7 +8,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useAppContext } from "context";
 import { EmptyContent } from "components/EmptyContent";
-import { Heading2 } from "components/Text/Heading2";
+import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 import { getMyFavoritesSnippetsAPI } from "helpers/api/snippets/getMyFavoritesSnippets";
 
 export default function Favorites() {
@@ -24,7 +24,7 @@ export default function Favorites() {
       </Head>
 
       <Layout isAllowed={!!isCurrentUser}>
-        <Heading2>My Favorite Snippets:</Heading2>
+        <UnderlinedHeading2 skew>My Favorite Snippets:</UnderlinedHeading2>
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (

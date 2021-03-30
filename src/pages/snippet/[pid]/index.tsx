@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useRef } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
-import { Head } from "next/document";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
 import { useMDEditor } from "components/hooks/useMDEditor";
@@ -10,7 +10,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { formatDatetime } from "utils/formatDatetime";
 import { sortTags, Tag } from "components/Tag";
-import { Heading2 } from "components/Text/Heading2";
+import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 
 export default function SnippetDetail() {
   const router = useRouter();
@@ -57,9 +57,9 @@ export default function SnippetDetail() {
 
   return (
     <Fragment>
-      {/* <Head>
-        <title>Code Snippet Memo | Snippet Memo</title>
-      </Head> */}
+      <Head>
+        <title>CodeView | {snippetApi.response?.title}</title>
+      </Head>
 
       <Layout>
         <LoadingContent
@@ -68,7 +68,9 @@ export default function SnippetDetail() {
         >
           {snippetApi.status === "succeeded" && (
             <Fragment>
-              <Heading2>{snippetApi.response.title}</Heading2>
+              <UnderlinedHeading2 skew>
+                {snippetApi.response.title}
+              </UnderlinedHeading2>
               <Description>{snippetApi.response.description}</Description>
               <Tags>
                 {sortTags(snippetApi.response.tags).map((tag, i) => (

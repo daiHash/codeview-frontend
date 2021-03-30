@@ -11,7 +11,7 @@ import { useApi } from "utils/api/useApi";
 import Link from "next/link";
 import { useAppContext } from "context";
 import { sortTagsWithId, Tag } from "components/Tag";
-import { Heading2 } from "components/Text/Heading2";
+import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 
 export default function SnippetsByTag() {
   const { tags } = useAppContext();
@@ -46,9 +46,9 @@ export default function SnippetsByTag() {
 
       <Layout>
         <Title>
-          <Heading2>
+          <UnderlinedHeading2 skew>
             Tag: <span>{tagTitle}</span>
-          </Heading2>
+          </UnderlinedHeading2>
         </Title>
         <h4>Search with other tags:</h4>
         <OtherTags>

@@ -16,7 +16,7 @@ import { Button } from "components/Button";
 import { Snippet } from "helpers/api/snippets/types";
 import { useAppContext } from "context";
 import { TagsInput } from "components/Input/TagsInput";
-import { Heading2 } from "components/Text/Heading2";
+import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 import { createSnippetAPI } from "helpers/api/snippets/createSnippet";
 import { useApi } from "utils/api/useApi";
 
@@ -135,7 +135,7 @@ export default function CreateSnippet() {
       <Layout isAllowed={!!isCurrentUser}>
         <main>
           <Heading>
-            <Heading2>Add your Code Snippet</Heading2>
+            <UnderlinedHeading2 skew>Add your Code Snippet</UnderlinedHeading2>
             <ButtonWrapper>
               <Button
                 onClick={createSnippet}

@@ -9,7 +9,7 @@ import Heart from "./assets/heart.svg";
 import {
   updateSnippetFavoriteAPI,
   // clearSnippetFavoriteAPI,
-} from "helpers/api/snippets/updateSnippetfavorite";
+} from "helpers/api/snippets/updateSnippetFavorite";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 

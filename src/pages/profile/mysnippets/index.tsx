@@ -9,7 +9,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useAppContext } from "context";
 import { EmptyContent } from "components/EmptyContent";
-import { Heading2 } from "components/Text/Heading2";
+import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 
 export default function MySnippets() {
   const { isCurrentUser } = useAppContext();
@@ -24,7 +24,7 @@ export default function MySnippets() {
       </Head>
 
       <Layout isAllowed={!!isCurrentUser}>
-        <Heading2>My Code Snippets 📝:</Heading2>
+        <UnderlinedHeading2 skew>My Code Snippets 📝:</UnderlinedHeading2>
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (
