@@ -5,10 +5,9 @@ import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
-// Fix case
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
-import { updateSnippetFavoriteAPI } from "helpers/api/snippets/updateSnippetFavorite";
+import { updateSnippetFavoriteAPI } from "helpers/api/snippets/updateSnippetsFavorite";
 
 export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
   snippet: { id, title, description, createdAt, updatedAt, tags, favorites },
