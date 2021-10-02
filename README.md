@@ -1,15 +1,26 @@
-Frontend for the Codeview web app
+# Frontend for the Codeview web app
+With Codeview you can save any code snippet that you have used; keep and access it easily as a memo
+
+## Prerequisites
+
+Before you continue, ensure you have met the following requirements:
+
+* You have installed v14.16.0.
+* Use yarn as package manager
 
 ## Getting Started
 
-First, run the development server:
+First, after you clone the repo install the neccesary packages with yarn
+```bash
+yarn install
+```
 
+When you finished installing the packages in root, run the development server:
 ```bash
 yarn dev
 ```
 
-Open [http://localhost:8080](http://localhost:8080) with your browser to see the result.
+Open [http://localhost:8080](http://localhost:8080) with your browser to see the app.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:8080/api/hello](http://localhost:8080/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### [NOTE]: You'd need to run the backend in order to be able to access the api server locally
+Please check [the codeview api repo(HERE)](https://github.com/daiHash/codeview-api) and follow its instructions to setup and run the api server locally
