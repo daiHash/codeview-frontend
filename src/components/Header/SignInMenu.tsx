@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
-import GoogleSignInButtonAsset from "./assets/btn_google_signin.png";
 import styled from "@emotion/styled";
 import { TextLink } from "../TextLink";
 import { useToggle } from "utils/hooks/useToggle";
@@ -34,7 +33,7 @@ export const SignInMenu = () => {
               <li>
                 <TextLink href={GOOGLE_SIGIN_URL}>
                   <Image
-                    src={GoogleSignInButtonAsset}
+                    src="/static/btn_google_signin.png"
                     alt="Google Sign In Button"
                     width={180}
                     height={50}
