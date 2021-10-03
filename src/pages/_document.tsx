@@ -7,6 +7,10 @@ class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <Favicon />
+          <meta
+            name="description"
+            content="Save any code snippet that you have used; keep and access it easily as a memo"
+          ></meta>
         </Head>
         <body>
           <Main />
