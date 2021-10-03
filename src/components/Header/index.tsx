@@ -16,7 +16,7 @@ export const Header = () => {
       <div>
         <TextLink href="/" isRouterLink>
           <Image
-            src="/static/codeview-logo.svg"
+            src="/codeview-logo.svg"
             alt=""
             width={200}
             height={80}

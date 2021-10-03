@@ -33,7 +33,7 @@ export const SignInMenu = () => {
               <li>
                 <TextLink href={GOOGLE_SIGIN_URL}>
                   <Image
-                    src="/static/btn_google_signin.png"
+                    src="/btn_google_signin.png"
                     alt="Google Sign In Button"
                     width={180}
                     height={50}
