@@ -1,5 +1,5 @@
 # Frontend for the Codeview web app
-With Codeview you can save any code snippet that you have used; keep and access it easily as a memo
+With Codeview you can save any code snippet that users have used; keep and access it easily as a memo
 
 ## Prerequisites
 
