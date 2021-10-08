@@ -9,14 +9,6 @@ export const SignInMenu = () => {
   const [isOpen, toggle] = useToggle(false);
   const menuRef = useRef<HTMLElement>(null);
 
-  const GOOGLE_SIGIN_URL = useMemo(
-    () =>
-      process.env.NODE_ENV !== "development"
-        ? "https://codeview.herokuapp.com/api/auth/google"
-        : "http://localhost:3000/api/auth/google",
-    []
-  );
-
   const onToggle = () => {
     toggle();
   };
@@ -31,7 +23,7 @@ export const SignInMenu = () => {
           <MenuContent ref={menuRef}>
             <ul>
               <li>
-                <TextLink href={GOOGLE_SIGIN_URL}>
+                <TextLink href={process.env.NEXT_PUBLIC_GOOGLE_SIGIN_URL}>
                   <Image
                     src="/btn_google_signin.png"
                     alt="Google Sign In Button"

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { Fragment, useMemo } from "react";
+import React from "react";
 import { TextLink } from "../TextLink";
 import { useToggle } from "utils/hooks/useToggle";
 
@@ -8,21 +8,12 @@ export const LoggedInMenu: React.VFC<{ avatarUrl: string }> = ({
 }) => {
   const [isOpen, toggle] = useToggle(false);
 
-  // TODO: set env vars for this
-  const LOGOUT_URL = useMemo(
-    () =>
-      process.env.NODE_ENV !== "development"
-        ? "https://codeview.herokuapp.com/api/auth/logout"
-        : "http://localhost:3000/api/auth/logout",
-    []
-  );
-
   const onToggle = () => {
     toggle();
   };
 
   return (
-    <Fragment>
+    <>
       <MenuButton
         aria-controls="global-nav"
         aria-haspopup="true"
@@ -37,7 +28,7 @@ export const LoggedInMenu: React.VFC<{ avatarUrl: string }> = ({
       </MenuButton>
 
       {isOpen && (
-        <Fragment>
+        <>
           <MenuBGLayer onClick={onToggle} />
           <MenuContent
             id="global-nav"
@@ -61,13 +52,15 @@ export const LoggedInMenu: React.VFC<{ avatarUrl: string }> = ({
                 </TextLink>
               </li>
               <li>
-                <TextLink href={LOGOUT_URL}>Log out</TextLink>
+                <TextLink href={process.env.NEXT_PUBLIC_LOGOUT_URL}>
+                  Log out
+                </TextLink>
               </li>
             </ul>
           </MenuContent>
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 

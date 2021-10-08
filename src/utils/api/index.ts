@@ -1,15 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
-export const baseURL =
-  process.env.NODE_ENV !== "production"
-    ? "http://localhost:3000/api"
-    : "https://codeview.herokuapp.com/api";
-
-export const clientBaseURL =
-  process.env.NODE_ENV !== "production"
-    ? "http://localhost:8080"
-    : "https://codeviewmemo.vercel.app/";
-
 export type ApiResponse<T> =
   | {
       error: undefined;
@@ -24,13 +14,13 @@ async function request<T>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
   try {
     const res = await axios.request<T>({
       timeout: 10000,
-      baseURL,
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       xsrfHeaderName: "X-CSRF-Token",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "Access-Control-Allow-Origin": clientBaseURL,
+        "Access-Control-Allow-Origin": process.env.NEXT_PUBLIC_CLIENT_BASE_URL,
       },
       responseType: "json",
       ...config,
