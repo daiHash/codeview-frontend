@@ -39,7 +39,7 @@ const Main = styled.main`
   @media screen and (max-width: 600px) {
     padding: 30px 20px;
     margin: 30px auto;
-    width: 90%;
+    width: 95%;
     min-height: calc(100vh - 150px - 80px);
   }
 `;
