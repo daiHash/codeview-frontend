@@ -21,7 +21,7 @@ Codeview is a web application where you can save any code snippet that users hav
 
 Before you continue, ensure you have met the following requirements:
 
-* You have installed v14.16.0.
+* You have installed >= v14.18.0.
 * Use yarn as package manager
 
 ## Getting Started
