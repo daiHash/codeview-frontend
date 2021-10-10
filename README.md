@@ -1,5 +1,19 @@
-# Frontend for the Codeview web app
-With Codeview you can save any code snippet that users have used; keep and access it easily as a memo
+# CodeView
+
+<details open>
+<summary>Tech stack:</summary>
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+<img src="https://img.shields.io/badge/Next.js-20232A?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+<img src="https://img.shields.io/badge/Emotion-db7093?style=for-the-badge&logo=styledcomponents&logoColor=yellow" />
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+</details>
+
+## Project Overview
+Codeview is a web application where you can save any code snippet that users have used; keep and access it easily as a memo
+
+<img width="800" alt="Codeview Top Page" src="https://user-images.githubusercontent.com/22023256/136691993-ff23ed04-3a22-42b3-8bd3-4c7f6a4c817e.png">
+
 
 ## Prerequisites
 
