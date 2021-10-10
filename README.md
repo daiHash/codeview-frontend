@@ -15,6 +15,8 @@ Codeview is a web application where you can save any code snippet that users hav
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
 </details>
 
+<img src="https://user-images.githubusercontent.com/22023256/136694020-0d7876b0-d23a-41c2-b410-625bbe9efbd3.png" alt="Codeview top page" width="800"/>
+
 ## Prerequisites
 
 Before you continue, ensure you have met the following requirements:
