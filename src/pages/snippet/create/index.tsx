@@ -51,7 +51,7 @@ export default function CreateSnippet() {
           initialState.current.tags[0] === snippet.tags;
   }, [snippet, initialState.current, md]);
 
-  const createSnippet = useCallback(async () => {
+  const createCodeSnippet = useCallback(async () => {
     if (isProcessing.current) return;
     isProcessing.current = true;
 
@@ -138,7 +138,7 @@ export default function CreateSnippet() {
             <UnderlinedHeading2 skew>Add your Code Snippet</UnderlinedHeading2>
             <ButtonWrapper>
               <Button
-                onClick={createSnippet}
+                onClick={createCodeSnippet}
                 disabled={disableButton || isProcessing.current}
               >
                 Add New Snippet

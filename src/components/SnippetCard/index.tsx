@@ -17,7 +17,7 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
   const isProcessing = useRef(false);
   const [_favorites, setFavorites] = useState(favorites.length);
   const [_isFavorite, toggle] = useToggle(false);
-  const [snippetFavoriteApi, updateSnippetFavorite] = useApi(
+  const [snippetFavoriteApi, updateCodeSnippetFavorite] = useApi(
     updateSnippetFavorite
   );
 
@@ -32,7 +32,7 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
     e.preventDefault();
     if (isProcessing.current) return;
     isProcessing.current = true;
-    await updateSnippetFavorite(id, { isFavorite: !_isFavorite });
+    await updateCodeSnippetFavorite(id, { isFavorite: !_isFavorite });
   };
 
   useEffect(() => {

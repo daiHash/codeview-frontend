@@ -34,7 +34,7 @@ export default function EditSnippet() {
   const initialState = useRef<EditSnippet>(null);
 
   const [snippetApi, getSnippet] = useApi(getSnippetById);
-  const [updateSnippetApi, updateSnippetById] = useApi(updateSnippetById);
+  const [updateSnippetApi, updateCodeSnippetById] = useApi(updateSnippetById);
 
   const [snippet, setSnippet] = useState<
     Omit<EditSnippet, "tags"> & { tags: string }
@@ -61,7 +61,7 @@ export default function EditSnippet() {
     isProcessing.current = true;
     const { snippetContentMD, tags } = snippet;
     if (pid && typeof pid === "string") {
-      updateSnippetById(pid, {
+      updateCodeSnippetById(pid, {
         ...snippet,
         snippetContentMD: md ? [md] : snippetContentMD,
         tags: [...new Set(tags.split(", "))],
