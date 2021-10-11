@@ -55,6 +55,7 @@ export default function SnippetDetail() {
 
     if (confirmation) {
       await deleteSnippet();
+      router.push({ pathname: "/" });
     }
   }, []);
 
@@ -63,12 +64,6 @@ export default function SnippetDetail() {
       getSnippet();
     }
   }, [pid]);
-
-  useEffect(() => {
-    if (deleteSnippetApi.status === "succeeded") {
-      router.push({ pathname: "/" });
-    }
-  }, [deleteSnippetApi.status]);
 
   useEffect(() => {
     // const codeWrapper = codeRef.current;
