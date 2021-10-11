@@ -18,8 +18,6 @@ type Props = {
 };
 
 const Home: React.FC<Props> = ({ snippets, status }) => {
-  console.log({ snippets, status });
-
   const { isCurrentUser } = useAppContext();
 
   return (
