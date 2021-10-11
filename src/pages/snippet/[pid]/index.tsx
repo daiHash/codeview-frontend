@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useMemo, useRef } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
 import Head from "next/head";
@@ -11,6 +17,7 @@ import { LoadingContent } from "components/Loading/LoadingContent";
 import { formatDatetime } from "utils/formatDatetime";
 import { sortTags, Tag } from "components/Tag";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { deleteSnippetById } from "helpers/api/snippets/deleteSnippet";
 
 export default function SnippetDetail() {
   const router = useRouter();
@@ -24,6 +31,9 @@ export default function SnippetDetail() {
     }
   }, [pid]);
   const [snippetApi, getSnippet] = useApi(() => getSnippetById(SnippetId));
+  const [deleteSnippetApi, deleteSnippet] = useApi(() =>
+    deleteSnippetById(SnippetId)
+  );
 
   const buttonStyles = {
     fontSize: "16px",
@@ -37,6 +47,17 @@ export default function SnippetDetail() {
     }
   };
 
+  // TODO: Add custom modal
+  const deleteCodeSnippet = useCallback(async () => {
+    const confirmation = confirm(
+      "Are you sure you want to delete this snippet?"
+    );
+
+    if (confirmation) {
+      await deleteSnippet();
+    }
+  }, []);
+
   useEffect(() => {
     if (pid && typeof pid === "string") {
       getSnippet();
@@ -44,15 +65,19 @@ export default function SnippetDetail() {
   }, [pid]);
 
   useEffect(() => {
-    const codeWrapper = codeRef.current;
-    const codes = codeRef.current?.querySelectorAll("section > div");
-
-    console.log("Outside", codeWrapper, codes);
-
-    if (codeWrapper && snippetApi.status === "succeeded") {
-      const code = codeWrapper.querySelectorAll("section pre");
-      console.log("Page:", { code });
+    if (deleteSnippetApi.status === "succeeded") {
+      router.push({ pathname: "/" });
     }
+  }, [deleteSnippetApi.status]);
+
+  useEffect(() => {
+    // const codeWrapper = codeRef.current;
+    // const codes = codeRef.current?.querySelectorAll("section > div");
+    // console.log("Outside", codeWrapper, codes);
+    // if (codeWrapper && snippetApi.status === "succeeded") {
+    //   const code = codeWrapper.querySelectorAll("section pre");
+    //   console.log("Page:", { code });
+    // }
   }, [snippetApi.status]);
 
   return (
@@ -109,10 +134,14 @@ export default function SnippetDetail() {
                       <Button onClick={sendToEdit} styles={buttonStyles} invert>
                         Edit
                       </Button>
-                      {/* //TODO: Handle delete */}
-                      {/* <Button onClick={() => null} styles={buttonStyles} invert>
-                Delete
-              </Button> */}
+
+                      <Button
+                        onClick={deleteCodeSnippet}
+                        styles={buttonStyles}
+                        invert
+                      >
+                        Delete
+                      </Button>
                     </ButtonsWrapper>
                   )}
               </SubContent>
