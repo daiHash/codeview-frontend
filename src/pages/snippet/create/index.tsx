@@ -17,7 +17,7 @@ import { Snippet } from "helpers/api/snippets/types";
 import { useAppContext } from "context";
 import { TagsInput } from "components/Input/TagsInput";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
-import { createSnippetAPI } from "helpers/api/snippets/createSnippet";
+import { createSnippet } from "helpers/api/snippets/createSnippet";
 import { useApi } from "utils/api/useApi";
 
 export default function CreateSnippet() {
@@ -33,7 +33,7 @@ export default function CreateSnippet() {
     tags: [""],
   });
 
-  const [createSnippetApi, createNewSnippet] = useApi(createSnippetAPI);
+  const [createSnippetApi, createNewSnippet] = useApi(createSnippet);
   const { renderEditor, md } = useMDEditor();
 
   const [snippet, setSnippet] = useState({

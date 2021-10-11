@@ -1,7 +1,7 @@
 import { api } from "utils/api";
 import { Snippet } from "./types";
 
-export const updateSnippetFavoriteAPI = (
+export const updateSnippetFavorite = (
   id: number,
   data: { isFavorite: boolean }
 ) => {

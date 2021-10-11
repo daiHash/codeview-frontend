@@ -2,7 +2,7 @@ import Head from "next/head";
 import styled from "@emotion/styled";
 import React, { Fragment } from "react";
 import { Layout } from "layout/Layout";
-import { getLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
+import { getLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { useApi } from "utils/api/useApi";
@@ -13,7 +13,7 @@ import { HeroContent } from "components/Home/HeroContent";
 import { useAppContext } from "context";
 
 export default function Home() {
-  const [snippetsApi] = useApi(getLatestSnippetsAPI, {
+  const [snippetsApi] = useApi(getLatestSnippets, {
     autoCall: true,
   });
 

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
 import Head from "next/head";
-import { getMyLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
+import { getMyLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { useApi } from "utils/api/useApi";
@@ -13,7 +13,7 @@ import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 
 export default function MySnippets() {
   const { isCurrentUser } = useAppContext();
-  const [snippetsApi] = useApi(getMyLatestSnippetsAPI, {
+  const [snippetsApi] = useApi(getMyLatestSnippets, {
     autoCall: true,
   });
 

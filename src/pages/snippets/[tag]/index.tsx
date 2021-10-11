@@ -6,7 +6,7 @@ import React, { Fragment, useEffect, useMemo } from "react";
 import { EmptyContent } from "components/EmptyContent";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { SnippetCard } from "components/SnippetCard";
-import { getLatestSnippetsAPI } from "helpers/api/snippets/getLatestSnippets";
+import { getLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { useApi } from "utils/api/useApi";
 import Link from "next/link";
 import { useAppContext } from "context";
@@ -18,7 +18,7 @@ export default function SnippetsByTag() {
   const router = useRouter();
   const { tag: currentTag } = router.query;
 
-  const [snippetsApi, getSnippet] = useApi(getLatestSnippetsAPI);
+  const [snippetsApi, getSnippet] = useApi(getLatestSnippets);
 
   const otherTags = useMemo(() => {
     return currentTag && typeof currentTag === "string"

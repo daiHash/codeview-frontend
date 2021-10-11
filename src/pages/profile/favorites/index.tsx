@@ -9,11 +9,11 @@ import { LoadingContent } from "components/Loading/LoadingContent";
 import { useAppContext } from "context";
 import { EmptyContent } from "components/EmptyContent";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
-import { getMyFavoritesSnippetsAPI } from "helpers/api/snippets/getMyFavoritesSnippets";
+import { getMyFavoritesSnippets } from "helpers/api/snippets/getMyFavoritesSnippets";
 
 export default function Favorites() {
   const { isCurrentUser } = useAppContext();
-  const [snippetsApi] = useApi(getMyFavoritesSnippetsAPI, {
+  const [snippetsApi] = useApi(getMyFavoritesSnippets, {
     autoCall: true,
   });
 

@@ -7,7 +7,7 @@ import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
-import { updateSnippetFavoriteAPI } from "helpers/api/snippets/updateSnippetsFavorite";
+import { updateSnippetFavorite } from "helpers/api/snippets/updateSnippetsFavorite";
 
 export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
   snippet: { id, title, description, createdAt, updatedAt, tags, favorites },
@@ -18,15 +18,15 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
   const [_favorites, setFavorites] = useState(favorites.length);
   const [_isFavorite, toggle] = useToggle(false);
   const [snippetFavoriteApi, updateSnippetFavorite] = useApi(
-    updateSnippetFavoriteAPI
+    updateSnippetFavorite
   );
 
   // Just for debug
   // const [, clearSnippetFavorite] = useApi(clearSnippetFavoriteAPI);
-  const isUpdatedSnippet = useMemo(() => createdAt !== updatedAt, [
-    createdAt,
-    updatedAt,
-  ]);
+  const isUpdatedSnippet = useMemo(
+    () => createdAt !== updatedAt,
+    [createdAt, updatedAt]
+  );
 
   const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

@@ -11,9 +11,9 @@ import React, {
 } from "react";
 import { Layout } from "layout/Layout";
 import { useMDEditor } from "components/hooks/useMDEditor";
-import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
+import { getSnippetById } from "helpers/api/snippets/getSnippetById";
 import { Snippet } from "helpers/api/snippets/types";
-import { updateSnippetByIdAPI } from "helpers/api/snippets/updateSnippet";
+import { updateSnippetById } from "helpers/api/snippets/updateSnippet";
 import { Button } from "components/Button";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useApi } from "utils/api/useApi";
@@ -33,8 +33,8 @@ export default function EditSnippet() {
   const isProcessing = useRef(false);
   const initialState = useRef<EditSnippet>(null);
 
-  const [snippetApi, getSnippet] = useApi(getSnippetByIdAPI);
-  const [updateSnippetApi, updateSnippetById] = useApi(updateSnippetByIdAPI);
+  const [snippetApi, getSnippet] = useApi(getSnippetById);
+  const [updateSnippetApi, updateSnippetById] = useApi(updateSnippetById);
 
   const [snippet, setSnippet] = useState<
     Omit<EditSnippet, "tags"> & { tags: string }
@@ -139,12 +139,8 @@ export default function EditSnippet() {
 
   useEffect(() => {
     if (snippetApi.status === "succeeded") {
-      const {
-        title,
-        description,
-        snippetContentMD,
-        tags,
-      } = snippetApi.response;
+      const { title, description, snippetContentMD, tags } =
+        snippetApi.response;
       const currentSnippet = {
         title,
         description,

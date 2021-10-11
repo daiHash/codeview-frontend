@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { getSnippetByIdAPI } from "helpers/api/snippets/getSnippetById";
+import { getSnippetById } from "helpers/api/snippets/getSnippetById";
 import { useMDEditor } from "components/hooks/useMDEditor";
 import { Button } from "components/Button";
 import { useApi } from "utils/api/useApi";
@@ -23,7 +23,7 @@ export default function SnippetDetail() {
       return pid;
     }
   }, [pid]);
-  const [snippetApi, getSnippet] = useApi(() => getSnippetByIdAPI(SnippetId));
+  const [snippetApi, getSnippet] = useApi(() => getSnippetById(SnippetId));
 
   const buttonStyles = {
     fontSize: "16px",

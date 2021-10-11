@@ -1,6 +1,6 @@
 import { UserStatus, getUserStatusAPI } from "helpers/api/auth/getUserStatus";
 import {
-  getSnippetsTagsAPI,
+  getSnippetsTags,
   TagResponse,
 } from "helpers/api/snippets/getSnippetTags";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -24,7 +24,7 @@ export const AppWrapper: React.FC = ({ children }) => {
   const [userStatusApi] = useApi(getUserStatusAPI, {
     autoCall: true,
   });
-  const [snippetsTagsApi] = useApi(getSnippetsTagsAPI, {
+  const [snippetsTagsApi] = useApi(getSnippetsTags, {
     autoCall: true,
   });
 

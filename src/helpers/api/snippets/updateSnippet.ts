@@ -1,7 +1,7 @@
 import { api } from "utils/api";
 import { Snippet } from "./types";
 
-export const updateSnippetByIdAPI = (
+export const updateSnippetById = (
   id: string,
   data: Pick<Snippet, "title" | "description" | "snippetContentMD" | "tags">
 ) => {
