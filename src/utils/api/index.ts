@@ -41,4 +41,7 @@ export const api = {
   put<R>(url: string, data?: unknown) {
     return request<R>({ method: "put", url, data });
   },
+  delete<R>(url: string) {
+    return request<R>({ method: "delete", url });
+  },
 };
