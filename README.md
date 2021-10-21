@@ -7,6 +7,7 @@
     
   </h1>
 
+<img src="https://img.shields.io/github/deployments/daiHash/codeview-frontend/production?label=vercel&logo=vercel&logoColor=white" />
 
 Codeview is a web application where you can save any code snippet that users have used; keep and access it easily as a memo
 
