@@ -1,8 +1,6 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import React, {
-  Fragment,
   useCallback,
   useEffect,
   useMemo,
@@ -20,6 +18,7 @@ import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 import { TagsInput } from "components/Input/TagsInput";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { MetaHead } from "components/MetaHead";
 
 type EditSnippet = Pick<
   Snippet,
@@ -168,10 +167,8 @@ export default function EditSnippet() {
   }, [md]);
 
   return (
-    <Fragment>
-      <Head>
-        <title>CodeView | Edit Code Snippet</title>
-      </Head>
+    <>
+      <MetaHead title="Edit Code Snippet" />
 
       <Layout isAllowed={!!isCurrentUser && snippetApi.response?.isUser}>
         <LoadingContent
@@ -181,7 +178,7 @@ export default function EditSnippet() {
           marginTop="20%"
         >
           {snippetApi.status === "succeeded" && (
-            <Fragment>
+            <>
               <Heading>
                 <UnderlinedHeading2 skew>
                   Edit your Code Snippet
@@ -225,11 +222,11 @@ export default function EditSnippet() {
               </InputsWrapper>
 
               <div>{renderEditor()}</div>
-            </Fragment>
+            </>
           )}
         </LoadingContent>
       </Layout>
-    </Fragment>
+    </>
   );
 }
 

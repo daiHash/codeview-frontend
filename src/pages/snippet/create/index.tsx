@@ -1,9 +1,7 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { api } from "utils/api";
 import React, {
-  Fragment,
   useCallback,
   useEffect,
   useMemo,
@@ -19,6 +17,7 @@ import { TagsInput } from "components/Input/TagsInput";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 import { createSnippet } from "helpers/api/snippets/createSnippet";
 import { useApi } from "utils/api/useApi";
+import { MetaHead } from "components/MetaHead";
 
 export default function CreateSnippet() {
   const { isCurrentUser } = useAppContext();
@@ -127,10 +126,8 @@ export default function CreateSnippet() {
   }, []);
 
   return (
-    <Fragment>
-      <Head>
-        <title>CodeView | Create New Code Snippet</title>
-      </Head>
+    <>
+      <MetaHead title="Create New Code Snippet" />
 
       <Layout isAllowed={!!isCurrentUser}>
         <main>
@@ -179,7 +176,7 @@ export default function CreateSnippet() {
           <div>{renderEditor()}</div>
         </main>
       </Layout>
-    </Fragment>
+    </>
   );
 }
 

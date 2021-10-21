@@ -1,8 +1,7 @@
 import { Layout } from "layout/Layout";
-import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import React, { Fragment, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { EmptyContent } from "components/EmptyContent";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { SnippetCard } from "components/SnippetCard";
@@ -12,6 +11,7 @@ import Link from "next/link";
 import { useAppContext } from "context";
 import { sortTagsWithId, Tag } from "components/Tag";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { MetaHead } from "components/MetaHead";
 
 export default function SnippetsByTag() {
   const { tags } = useAppContext();
@@ -39,10 +39,8 @@ export default function SnippetsByTag() {
   }, [currentTag]);
 
   return (
-    <Fragment>
-      <Head>
-        <title>CodeView | Tag: {tagTitle}</title>
-      </Head>
+    <>
+      <MetaHead title={`Tag: ${tagTitle}`} />
 
       <Layout>
         <Title>
@@ -81,7 +79,7 @@ export default function SnippetsByTag() {
           </LoadingContent>
         </TagSnippets>
       </Layout>
-    </Fragment>
+    </>
   );
 }
 

@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
-import Head from "next/head";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { useApi } from "utils/api/useApi";
@@ -10,6 +9,7 @@ import { useAppContext } from "context";
 import { EmptyContent } from "components/EmptyContent";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 import { getMyFavoritesSnippets } from "helpers/api/snippets/getMyFavoritesSnippets";
+import { MetaHead } from "components/MetaHead";
 
 export default function Favorites() {
   const { isCurrentUser } = useAppContext();
@@ -18,10 +18,8 @@ export default function Favorites() {
   });
 
   return (
-    <Fragment>
-      <Head>
-        <title>CodeView | My Favorite Snippets</title>
-      </Head>
+    <>
+      <MetaHead title="My Favorite Snippets" />
 
       <Layout isAllowed={!!isCurrentUser}>
         <UnderlinedHeading2 skew>My Favorite Snippets:</UnderlinedHeading2>
@@ -45,7 +43,7 @@ export default function Favorites() {
           </LoadingContent>
         </MySnippetsList>
       </Layout>
-    </Fragment>
+    </>
   );
 }
 

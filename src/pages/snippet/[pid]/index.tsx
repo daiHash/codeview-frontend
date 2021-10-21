@@ -1,13 +1,6 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import styled from "@emotion/styled";
 import { Layout } from "layout/Layout";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { getSnippetById } from "helpers/api/snippets/getSnippetById";
 import { useMDEditor } from "components/hooks/useMDEditor";
@@ -18,6 +11,7 @@ import { formatDatetime } from "utils/formatDatetime";
 import { sortTags, Tag } from "components/Tag";
 import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
 import { deleteSnippetById } from "helpers/api/snippets/deleteSnippet";
+import { MetaHead } from "components/MetaHead";
 
 export default function SnippetDetail() {
   const router = useRouter();
@@ -76,10 +70,8 @@ export default function SnippetDetail() {
   }, [snippetApi.status]);
 
   return (
-    <Fragment>
-      <Head>
-        <title>CodeView | {snippetApi.response?.title}</title>
-      </Head>
+    <>
+      <MetaHead title={snippetApi.response?.title} />
 
       <Layout>
         <LoadingContent
@@ -87,7 +79,7 @@ export default function SnippetDetail() {
           marginTop="30%"
         >
           {snippetApi.status === "succeeded" && (
-            <Fragment>
+            <>
               <UnderlinedHeading2 skew>
                 {snippetApi.response.title}
               </UnderlinedHeading2>
@@ -144,11 +136,11 @@ export default function SnippetDetail() {
               <div ref={codeRef}>
                 {renderFormatter(snippetApi.response.snippetContentMD[0])}
               </div>
-            </Fragment>
+            </>
           )}
         </LoadingContent>
       </Layout>
-    </Fragment>
+    </>
   );
 }
 

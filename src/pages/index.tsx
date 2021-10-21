@@ -1,6 +1,5 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
-import React, { Fragment } from "react";
+import React from "react";
 import { Layout } from "layout/Layout";
 import { getLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
@@ -11,6 +10,7 @@ import { HeroContent } from "components/Home/HeroContent";
 import { useAppContext } from "context";
 import { Snippet } from "helpers/api/snippets/types";
 import { GetServerSidePropsResult } from "next";
+import { MetaHead } from "components/MetaHead";
 
 type Props = {
   snippets: Snippet[] | null;
@@ -21,10 +21,8 @@ const Home: React.FC<Props> = ({ snippets, status }) => {
   const { isCurrentUser } = useAppContext();
 
   return (
-    <Fragment>
-      <Head>
-        <title>CodeView</title>
-      </Head>
+    <>
+      <MetaHead />
 
       <Layout>
         {isCurrentUser !== undefined ? !isCurrentUser && <HeroContent /> : null}
@@ -47,7 +45,7 @@ const Home: React.FC<Props> = ({ snippets, status }) => {
           ) : null}
         </LatestSnippets>
       </Layout>
-    </Fragment>
+    </>
   );
 };
 
