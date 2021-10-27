@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { sortTags, Tag } from "components/Tag";
 import { Snippet } from "helpers/api/snippets/types";
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { formatDatetime } from "utils/formatDatetime";
 import { useToggle } from "utils/hooks/useToggle";
 import Heart from "./assets/heart.svg";
@@ -59,7 +59,7 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
       <h3>{title}</h3>
       <p>{description}</p>
       {isCurrentUser && (
-        <Fragment>
+        <>
           <HeartIcon
             onClick={toggleFavorite}
             isFavorite={_isFavorite}
@@ -83,7 +83,7 @@ export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
               Clear {userId}
             </button>
           )} */}
-        </Fragment>
+        </>
       )}
 
       <Tags>
@@ -113,6 +113,7 @@ const Card = styled.div`
   position: relative;
   padding: 30px 25px;
   width: 100%;
+  height: 240px;
   min-height: 200px;
   background: #fff;
   border-radius: 4px;
@@ -120,7 +121,14 @@ const Card = styled.div`
     0 0 0 1px rgb(10, 10, 10, 0.2);
 
   p {
+    display: -webkit-box;
     word-wrap: break-word;
+    max-height: 55px;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 `;
 
