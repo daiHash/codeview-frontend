@@ -3,7 +3,7 @@ import React from "react";
 import { TextLink } from "../TextLink";
 import { useToggle } from "utils/hooks/useToggle";
 
-export const LoggedInMenu: React.VFC<{ avatarUrl: string }> = ({
+export const LoggedInMenu: React.FC<{ avatarUrl: string }> = ({
   avatarUrl,
 }) => {
   const [isOpen, toggle] = useToggle(false);

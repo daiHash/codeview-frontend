@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-export const LoadingIcon: React.VFC<{ marginTop?: string }> = ({
+export const LoadingIcon: React.FC<{ marginTop?: string }> = ({
   marginTop,
 }) => {
   return (

@@ -9,7 +9,7 @@ import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 import { updateSnippetFavorite } from "helpers/api/snippets/updateSnippetsFavorite";
 
-export const SnippetCard: React.VFC<{ snippet: Snippet }> = ({
+export const SnippetCard: React.FC<{ snippet: Snippet }> = ({
   snippet: { id, title, description, createdAt, updatedAt, tags, favorites },
 }) => {
   const { isCurrentUser, id: userId } = useAppContext();

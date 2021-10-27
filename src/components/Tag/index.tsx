@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { TextLink } from "components/TextLink";
 import { TagResponse } from "helpers/api/snippets/getSnippetTags";
-import { Fragment } from "react";
+import React from "react";
 
 type TagStyles = {
   color?: string;
@@ -26,10 +26,10 @@ export const sortTags = (tags: string[]) => {
   return tags.sort((a, b) => a.localeCompare(b));
 };
 
-export const Tag: React.VFC<Props> = (props) => {
+export const Tag: React.FC<Props> = (props) => {
   const { text, styles } = props;
   return (
-    <Fragment>
+    <>
       {props.isRouterLink !== undefined ? (
         <TextLink href={props.href} isRouterLink={props.isRouterLink}>
           <StyledTag
@@ -51,7 +51,7 @@ export const Tag: React.VFC<Props> = (props) => {
           {text}
         </StyledTag>
       )}
-    </Fragment>
+    </>
   );
 };
 

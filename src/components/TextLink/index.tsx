@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { Fragment } from "react";
+import React from "react";
 import Link from "next/link";
 
 type Props = {
@@ -19,7 +19,7 @@ export const TextLink: React.FC<Props> = ({
   onClick,
 }) => {
   return (
-    <Fragment>
+    <>
       {isRouterLink ? (
         <Link href={href} passHref>
           <A color={color} fontSize={fontSize} onClick={onClick} tabIndex={0}>
@@ -37,7 +37,7 @@ export const TextLink: React.FC<Props> = ({
           {children}
         </A>
       )}
-    </Fragment>
+    </>
   );
 };
 

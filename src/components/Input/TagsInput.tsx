@@ -25,7 +25,7 @@ type Props = {
   >;
 };
 
-export const TagsInput: React.VFC<Props> = ({
+export const TagsInput: React.FC<Props> = ({
   onChange,
   value,
   keyHandler,
