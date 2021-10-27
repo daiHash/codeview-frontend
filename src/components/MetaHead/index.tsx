@@ -8,7 +8,7 @@ type Props = {
 export const MetaHead: React.FC<Props> = ({ title }) => {
   const pageTitle = useMemo(
     () => (title ? `${title} | CodeView` : "CodeView"),
-    []
+    [title]
   );
 
   return (

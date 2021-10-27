@@ -40,7 +40,7 @@ export default function SnippetsByTag() {
 
   return (
     <>
-      <MetaHead title={`Tag: ${tagTitle}`} />
+      <MetaHead title={`Tag: ${tagTitle ?? "-"}`} />
 
       <Layout>
         <Title>
