@@ -48,7 +48,7 @@ export default function SnippetsByTag() {
             Tag: <span>{tagTitle}</span>
           </UnderlinedHeading>
         </Title>
-        <h4>Search with other tags:</h4>
+        <h2 css={{ fontSize: "18px" }}>Search with other tags:</h2>
         <OtherTags>
           {otherTags.map(({ id, tag }) => (
             <li key={`${tag}-${id}`}>
