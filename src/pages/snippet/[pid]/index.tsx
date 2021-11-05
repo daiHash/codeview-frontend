@@ -9,7 +9,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { formatDatetime } from "utils/formatDatetime";
 import { sortTags, Tag } from "components/Tag";
-import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { UnderlinedHeading } from "components/Text/UnderlinedHeading";
 import { deleteSnippetById } from "helpers/api/snippets/deleteSnippet";
 import { MetaHead } from "components/MetaHead";
 
@@ -80,9 +80,9 @@ export default function SnippetDetail() {
         >
           {snippetApi.status === "succeeded" && (
             <>
-              <UnderlinedHeading2 skew>
+              <UnderlinedHeading skew>
                 {snippetApi.response.title}
-              </UnderlinedHeading2>
+              </UnderlinedHeading>
               <Description>{snippetApi.response.description}</Description>
               <Tags>
                 {sortTags(snippetApi.response.tags).map((tag, i) => (

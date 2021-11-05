@@ -17,7 +17,7 @@ import { LoadingContent } from "components/Loading/LoadingContent";
 import { useApi } from "utils/api/useApi";
 import { useAppContext } from "context";
 import { TagsInput } from "components/Input/TagsInput";
-import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { UnderlinedHeading } from "components/Text/UnderlinedHeading";
 import { MetaHead } from "components/MetaHead";
 
 type EditSnippet = Pick<
@@ -180,9 +180,9 @@ export default function EditSnippet() {
           {snippetApi.status === "succeeded" && (
             <>
               <Heading>
-                <UnderlinedHeading2 skew>
+                <UnderlinedHeading skew>
                   Edit your Code Snippet
-                </UnderlinedHeading2>
+                </UnderlinedHeading>
                 <ButtonWrapper>
                   <Button
                     onClick={updateSnippet}

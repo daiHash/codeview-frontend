@@ -10,7 +10,7 @@ import { useApi } from "utils/api/useApi";
 import Link from "next/link";
 import { useAppContext } from "context";
 import { sortTagsWithId, Tag } from "components/Tag";
-import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { UnderlinedHeading } from "components/Text/UnderlinedHeading";
 import { MetaHead } from "components/MetaHead";
 
 export default function SnippetsByTag() {
@@ -44,9 +44,9 @@ export default function SnippetsByTag() {
 
       <Layout>
         <Title>
-          <UnderlinedHeading2 skew>
+          <UnderlinedHeading skew>
             Tag: <span>{tagTitle}</span>
-          </UnderlinedHeading2>
+          </UnderlinedHeading>
         </Title>
         <h4>Search with other tags:</h4>
         <OtherTags>

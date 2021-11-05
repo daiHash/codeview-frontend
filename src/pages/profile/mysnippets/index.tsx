@@ -8,7 +8,7 @@ import { useApi } from "utils/api/useApi";
 import { LoadingContent } from "components/Loading/LoadingContent";
 import { useAppContext } from "context";
 import { EmptyContent } from "components/EmptyContent";
-import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { UnderlinedHeading } from "components/Text/UnderlinedHeading";
 import { MetaHead } from "components/MetaHead";
 
 export default function MySnippets() {
@@ -22,7 +22,7 @@ export default function MySnippets() {
       <MetaHead title="My Code Snippets 📝" />
 
       <Layout isAllowed={!!isCurrentUser}>
-        <UnderlinedHeading2 skew>My Code Snippets 📝:</UnderlinedHeading2>
+        <UnderlinedHeading skew>My Code Snippets 📝:</UnderlinedHeading>
         <MySnippetsList>
           <LoadingContent isLoading={snippetsApi.status === "loading"}>
             {snippetsApi.status === "succeeded" ? (

@@ -5,7 +5,7 @@ import { getLatestSnippets } from "helpers/api/snippets/getLatestSnippets";
 import { SnippetCard } from "components/SnippetCard";
 import Link from "next/link";
 import { EmptyContent } from "components/EmptyContent";
-import { UnderlinedHeading2 } from "components/Text/UnderlinedHeading2";
+import { UnderlinedHeading } from "components/Text/UnderlinedHeading";
 import { HeroContent } from "components/Home/HeroContent";
 import { useAppContext } from "context";
 import { Snippet } from "helpers/api/snippets/types";
@@ -26,7 +26,9 @@ const Home: React.FC<Props> = ({ snippets, status }) => {
 
       <Layout>
         {isCurrentUser !== undefined ? !isCurrentUser && <HeroContent /> : null}
-        <UnderlinedHeading2 skew>Latest Code Snippets:</UnderlinedHeading2>
+        <UnderlinedHeading skew type="h2">
+          Latest Code Snippets:
+        </UnderlinedHeading>
         <LatestSnippets>
           {status === "successful" ? (
             snippets.length > 0 ? (
