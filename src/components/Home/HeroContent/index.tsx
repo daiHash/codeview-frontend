@@ -1,19 +1,20 @@
 import styled from "@emotion/styled";
 import HeroImage from "./assets/hero-image.svg";
-import { Heading2 } from "components/Text/Heading2";
 import { UnderlinedText } from "components/Text/UnderLinedText";
 import { ButtonLink } from "components/Button/ButtonLink";
+import React from "react";
+import { Heading1 } from "components/Text/Heading1";
 
 export const HeroContent = () => {
   return (
     <Wrapper>
       <HeroContentText>
         <div>
-          <Heading2 lineHeight="40px" fontSize="42px" skew>
+          <Heading1 lineHeight="40px" fontSize="42px" skew>
             <UnderlinedText underlineColor={{ plain: "#F9D63E" }}>
               CodeView
             </UnderlinedText>
-          </Heading2>
+          </Heading1>
 
           <p>add, share, discover code snippets with others</p>
         </div>
