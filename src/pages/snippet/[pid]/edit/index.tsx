@@ -1,49 +1,43 @@
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { Layout } from "layout/Layout";
-import { useMDEditor } from "components/hooks/useMDEditor";
-import { getSnippetById } from "helpers/api/snippets/getSnippetById";
-import { Snippet } from "helpers/api/snippets/types";
-import { updateSnippetById } from "helpers/api/snippets/updateSnippet";
-import { Button } from "components/Button";
-import { LoadingContent } from "components/Loading/LoadingContent";
-import { useApi } from "utils/api/useApi";
-import { useAppContext } from "context";
-import { TagsInput } from "components/Input/TagsInput";
-import { UnderlinedHeading } from "components/Text/UnderlinedHeading";
-import { MetaHead } from "components/MetaHead";
+import styled from '@emotion/styled'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Layout } from 'layout/Layout'
+import { useMDEditor } from 'components/hooks/useMDEditor'
+import { getSnippetById } from 'helpers/api/snippets/getSnippetById'
+import { Snippet } from 'helpers/api/snippets/types'
+import { updateSnippetById } from 'helpers/api/snippets/updateSnippet'
+import { Button } from 'components/Button'
+import { LoadingContent } from 'components/Loading/LoadingContent'
+import { useApi } from 'utils/api/useApi'
+import { useAppContext } from 'context'
+import { TagsInput } from 'components/Input/TagsInput'
+import { UnderlinedHeading } from 'components/Text/UnderlinedHeading'
+import { MetaHead } from 'components/MetaHead'
 
 type EditSnippet = Pick<
   Snippet,
-  "title" | "description" | "snippetContentMD" | "tags"
->;
+  'title' | 'description' | 'snippetContentMD' | 'tags'
+>
 
 export default function EditSnippet() {
-  const { isCurrentUser } = useAppContext();
-  const router = useRouter();
-  const { pid } = router.query;
-  const isProcessing = useRef(false);
-  const initialState = useRef<EditSnippet>(null);
+  const { isCurrentUser } = useAppContext()
+  const router = useRouter()
+  const { pid } = router.query
+  const isProcessing = useRef(false)
+  const initialState = useRef<EditSnippet>(null)
 
-  const [snippetApi, getSnippet] = useApi(getSnippetById);
-  const [updateSnippetApi, updateCodeSnippetById] = useApi(updateSnippetById);
+  const [snippetApi, getSnippet] = useApi(getSnippetById)
+  const [updateSnippetApi, updateCodeSnippetById] = useApi(updateSnippetById)
 
   const [snippet, setSnippet] = useState<
-    Omit<EditSnippet, "tags"> & { tags: string }
+    Omit<EditSnippet, 'tags'> & { tags: string }
   >({
-    title: "",
-    description: "",
-    snippetContentMD: [""],
-    tags: "",
-  });
-  const { renderEditor, md } = useMDEditor(snippet.snippetContentMD[0]);
+    title: '',
+    description: '',
+    snippetContentMD: [''],
+    tags: '',
+  })
+  const { renderEditor, md } = useMDEditor(snippet.snippetContentMD[0])
 
   const disableButton = useMemo(() => {
     return initialState.current === null
@@ -52,132 +46,131 @@ export default function EditSnippet() {
           initialState.current.description === snippet.description &&
           initialState.current.snippetContentMD[0] ===
             snippet.snippetContentMD[0] &&
-          initialState.current.tags.join(", ") === snippet.tags;
-  }, [snippet, initialState.current]);
+          initialState.current.tags.join(', ') === snippet.tags
+  }, [snippet, initialState.current])
 
   const updateSnippet = useCallback(async () => {
-    if (isProcessing.current) return;
-    isProcessing.current = true;
-    const { snippetContentMD, tags } = snippet;
-    if (pid && typeof pid === "string") {
+    if (isProcessing.current) return
+    isProcessing.current = true
+    const { snippetContentMD, tags } = snippet
+    if (pid && typeof pid === 'string') {
       updateCodeSnippetById(pid, {
         ...snippet,
         snippetContentMD: md ? [md] : snippetContentMD,
-        tags: [...new Set(tags.split(", "))],
-      });
+        tags: [...new Set(tags.split(', '))],
+      })
     }
-  }, [snippet, md, pid]);
+  }, [snippet, md, pid])
 
   const onInputChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.currentTarget;
-    if (value.split(",").length > 4) {
-      e.preventDefault();
-      return;
+    const { name, value } = e.currentTarget
+    if (value.split(',').length > 4) {
+      e.preventDefault()
+      return
     }
 
     setSnippet((v) => {
-      return { ...v, [name]: value };
-    });
-    const currentSnippet = JSON.parse(sessionStorage.getItem("currentSnippet"));
+      return { ...v, [name]: value }
+    })
+    const currentSnippet = JSON.parse(sessionStorage.getItem('currentSnippet'))
     if (currentSnippet) {
-      const current = { ...currentSnippet };
+      const current = { ...currentSnippet }
       sessionStorage.setItem(
-        "currentSnippet",
+        'currentSnippet',
         JSON.stringify({ ...current, [name]: value })
-      );
-      return;
+      )
+      return
     }
-    sessionStorage.setItem("currentSnippet", JSON.stringify({ [name]: value }));
-  };
+    sessionStorage.setItem('currentSnippet', JSON.stringify({ [name]: value }))
+  }
 
   const handleTagsKeyInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    if (e.key === "," && value.length > 0 && value.split(",").length <= 4) {
+    const { value } = e.currentTarget
+    if (e.key === ',' && value.length > 0 && value.split(',').length <= 4) {
       setSnippet((v) => {
         return {
           ...v,
-          tags: value.split(", ").length >= 4 ? v.tags : `${v.tags} `,
-        };
-      });
+          tags: value.split(', ').length >= 4 ? v.tags : `${v.tags} `,
+        }
+      })
     }
-  };
+  }
 
   // TODO: Fix to keep state of session
   useEffect(() => {
-    const currentSnippet = JSON.parse(sessionStorage.getItem("currentSnippet"));
+    const currentSnippet = JSON.parse(sessionStorage.getItem('currentSnippet'))
     if (currentSnippet) {
       setSnippet((v) => {
-        return { ...v, ...currentSnippet };
-      });
+        return { ...v, ...currentSnippet }
+      })
     }
 
-    return () => sessionStorage.removeItem("currentSnippet");
-  }, []);
+    return () => sessionStorage.removeItem('currentSnippet')
+  }, [])
 
   useEffect(() => {
-    if (updateSnippetApi.status === "failed") {
-      isProcessing.current = false;
-      return;
+    if (updateSnippetApi.status === 'failed') {
+      isProcessing.current = false
+      return
     }
 
-    if (updateSnippetApi.status === "succeeded") {
-      isProcessing.current = false;
-      router.push("/");
+    if (updateSnippetApi.status === 'succeeded') {
+      isProcessing.current = false
+      router.back()
     }
-  }, [updateSnippetApi.status]);
-
-  useEffect(() => {
-    if (pid && typeof pid === "string") {
-      getSnippet(pid);
-    }
-  }, [pid]);
+  }, [updateSnippetApi.status])
 
   useEffect(() => {
-    if (snippetApi.status === "succeeded") {
-      const { title, description, snippetContentMD, tags } =
-        snippetApi.response;
+    if (pid && typeof pid === 'string') {
+      getSnippet(pid)
+    }
+  }, [pid])
+
+  useEffect(() => {
+    if (snippetApi.status === 'succeeded') {
+      const { title, description, snippetContentMD, tags } = snippetApi.response
       const currentSnippet = {
         title,
         description,
         snippetContentMD,
         tags,
-      };
-      initialState.current = currentSnippet;
+      }
+      initialState.current = currentSnippet
 
       setSnippet((snippet) => {
         return {
           ...snippet,
           ...{
             ...currentSnippet,
-            tags: currentSnippet.tags.join(", "),
+            tags: currentSnippet.tags.join(', '),
           },
-        };
-      });
+        }
+      })
     }
-  }, [snippetApi.status]);
+  }, [snippetApi.status])
 
   useEffect(() => {
     setSnippet((v) => {
-      return { ...v, snippetContentMD: [md] };
-    });
-  }, [md]);
+      return { ...v, snippetContentMD: [md] }
+    })
+  }, [md])
 
   return (
     <>
-      <MetaHead title="Edit Code Snippet" />
+      <MetaHead title='Edit Code Snippet' />
 
       <Layout isAllowed={!!isCurrentUser && snippetApi.response?.isUser}>
         <LoadingContent
           isLoading={
-            snippetApi.status === "loading" || initialState.current === null
+            snippetApi.status === 'loading' || initialState.current === null
           }
-          marginTop="20%"
+          marginTop='20%'
         >
-          {snippetApi.status === "succeeded" && (
+          {snippetApi.status === 'succeeded' && (
             <>
               <Heading>
                 <UnderlinedHeading skew>
@@ -197,9 +190,9 @@ export default function EditSnippet() {
                 <label>
                   <span>Edit Title:</span>
                   <input
-                    type="text"
-                    name="title"
-                    id="title"
+                    type='text'
+                    name='title'
+                    id='title'
                     value={snippet.title}
                     onChange={onInputChange}
                   />
@@ -213,8 +206,8 @@ export default function EditSnippet() {
                 <label>
                   <span>Edit Description:</span>
                   <textarea
-                    name="description"
-                    id="description"
+                    name='description'
+                    id='description'
                     value={snippet.description}
                     onChange={onInputChange}
                   />
@@ -227,7 +220,7 @@ export default function EditSnippet() {
         </LoadingContent>
       </Layout>
     </>
-  );
+  )
 }
 
 const ButtonWrapper = styled.div`
@@ -235,7 +228,7 @@ const ButtonWrapper = styled.div`
   @media screen and (max-width: 850px) {
     margin: 20px 0;
   }
-`;
+`
 
 const Heading = styled.div`
   display: flex;
@@ -246,7 +239,7 @@ const Heading = styled.div`
   @media screen and (max-width: 850px) {
     display: block;
   }
-`;
+`
 
 const InputsWrapper = styled.div`
   margin: 20px 0 40px;
@@ -282,4 +275,4 @@ const InputsWrapper = styled.div`
       padding: 10px 20px;
     }
   }
-`;
+`
