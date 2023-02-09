@@ -1,17 +1,16 @@
-import styled from "@emotion/styled";
-import HeroImage from "./assets/hero-image.svg";
-import { UnderlinedText } from "components/Text/UnderLinedText";
-import { ButtonLink } from "components/Button/ButtonLink";
-import React from "react";
-import { Heading1 } from "components/Text/Heading1";
+import styled from '@emotion/styled'
+import HeroImage from './assets/hero-image.svg'
+import { UnderlinedText } from 'components/Text/UnderLinedText'
+import { ButtonLink } from 'components/Button/ButtonLink'
+import { Heading1 } from 'components/Text/Heading1'
 
 export const HeroContent = () => {
   return (
     <Wrapper>
       <HeroContentText>
         <div>
-          <Heading1 lineHeight="40px" fontSize="42px" skew>
-            <UnderlinedText underlineColor={{ plain: "#F9D63E" }}>
+          <Heading1 lineHeight='40px' fontSize='42px' skew>
+            <UnderlinedText underlineColor={{ plain: '#F9D63E' }}>
               CodeView
             </UnderlinedText>
           </Heading1>
@@ -30,8 +29,8 @@ export const HeroContent = () => {
         <HeroImage />
       </HeroImageWrapper>
     </Wrapper>
-  );
-};
+  )
+}
 
 const Wrapper = styled.div`
   width: 80%;
@@ -45,7 +44,7 @@ const Wrapper = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-`;
+`
 
 const HeroContentText = styled.div`
   > div {
@@ -59,7 +58,7 @@ const HeroContentText = styled.div`
       margin-top: 20px;
     }
   }
-`;
+`
 
 const HeroImageWrapper = styled.div`
   display: flex;
@@ -68,4 +67,4 @@ const HeroImageWrapper = styled.div`
     width: 100%;
     height: auto;
   }
-`;
+`
